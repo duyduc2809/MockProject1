@@ -9,3 +9,5 @@
 /web
 /windows
 /.flutter-plugins
+/main.dart
+.flutter-plugins-dependencies
