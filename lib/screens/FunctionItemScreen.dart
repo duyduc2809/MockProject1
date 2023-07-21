@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:mock_project/sql_helper.dart';
-import 'item.dart';
+import '../helpers/SQLItemHelper.dart';
 
+import '../classes/Item.dart';
 
 class ItemScreen extends StatelessWidget {
   const ItemScreen({Key? key}) : super(key: key);
@@ -23,26 +23,14 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
+  late String _function = ModalRoute.of(context)?.settings.arguments as String;
 
-  late String _function = 'status';
   late String _title;
-
 
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
 
-  void _createTitle(){
-    switch(_function){
-      case 'category':
-        _title = 'Category';break;
-      case 'priority':
-        _title = 'Priority';break;
-      case 'status':
-        _title = 'Status';break;
-    }
-  }
-
-  Future<void> _refreshJournals() async{
+  Future<void> _refreshJournals() async {
     final data = await SQLHelper.getItems(_function);
 
     setState(() {
@@ -53,18 +41,16 @@ class _HomePageState extends State<_HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _refreshJournals();
-    _createTitle();
   }
 
   final TextEditingController _titleController = TextEditingController();
 
-  void _showForm(int? id) async{
-    if(id != null){
+  void _showForm(int? id) async {
+    if (id != null) {
       final existingJournal =
-      _journals.firstWhere((element) => element['id'] == id);
+          _journals.firstWhere((element) => element['id'] == id);
       _titleController.text = existingJournal['name'];
     }
 
@@ -73,53 +59,49 @@ class _HomePageState extends State<_HomePage> {
         elevation: 5,
         isScrollControlled: true,
         builder: (_) => Container(
-          padding: EdgeInsets.only(
-            top: 15,
-            left: 15,
-            right: 15,
-
-            bottom: MediaQuery.of(context).viewInsets.bottom + 120,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              TextFormField(
-                controller: _titleController,
-                decoration: const InputDecoration(hintText: 'Name'),
+              padding: EdgeInsets.only(
+                top: 15,
+                left: 15,
+                right: 15,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 120,
               ),
-              const SizedBox(
-                height: 10,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  TextFormField(
+                    controller: _titleController,
+                    decoration: const InputDecoration(hintText: 'Name'),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (id == null) {
+                        await _addItem();
+                      }
+                      if (id != null) {
+                        await _updateItem(id);
+                      }
+
+                      _titleController.text = '';
+
+                      if (!mounted) return;
+
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(id == null ? 'Create New' : 'Update'),
+                  )
+                ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-
-              ElevatedButton(
-                onPressed: () async{
-                  if(id== null){
-                    await _addItem();
-                  }
-                  if(id!= null){
-                    await _updateItem(id);
-                  }
-
-                  _titleController.text = '';
-
-                  if(!mounted) return;
-
-                  Navigator.of(context).pop();
-                },
-
-                child: Text(id == null ? 'Create New' : 'Update'),
-              )
-            ],
-          ),
-        )
-    );
+            ));
   }
 
-  Future<void> _addItem() async{
+  Future<void> _addItem() async {
     await SQLHelper.createItem(Item(
       function: _function,
       name: _titleController.text,
@@ -127,7 +109,7 @@ class _HomePageState extends State<_HomePage> {
     _refreshJournals();
   }
 
-  Future<void> _updateItem(int id) async{
+  Future<void> _updateItem(int id) async {
     await SQLHelper.createItem(Item(
       id: id,
       function: _function,
@@ -136,10 +118,10 @@ class _HomePageState extends State<_HomePage> {
     _refreshJournals();
   }
 
-  Future<void> _deleteItem(int id) async{
+  Future<void> _deleteItem(int id) async {
     await SQLHelper.deleteItem(id);
 
-    if(!mounted) return;
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
       content: Text('Delete Success'),
     ));
@@ -151,45 +133,43 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title +' Form'),
+        title: Text(_function + ' Form'),
       ),
       body: _isLoading
           ? const Center(
-        child: CircularProgressIndicator(),
-      )
-          :ListView.builder(
-        itemCount: _journals.length,
-        itemBuilder: (context, index) => Card(
-          color: Colors.orange[200],
-          margin: const EdgeInsets.all(15),
-          child: ListTile(
-            title: Text('Name: ' + _journals[index]['name']),
-            subtitle: Text('Created Date: ' + _journals[index]['createdAt']),
-            trailing: SizedBox(
-              width: 100,
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () => _showForm(_journals[index]['id']),
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              itemCount: _journals.length,
+              itemBuilder: (context, index) => Card(
+                color: Colors.orange[200],
+                margin: const EdgeInsets.all(15),
+                child: ListTile(
+                  title: Text('Name: ' + _journals[index]['name']),
+                  subtitle:
+                      Text('Created Date: ' + _journals[index]['createdAt']),
+                  trailing: SizedBox(
+                    width: 100,
+                    child: Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () => _showForm(_journals[index]['id']),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _deleteItem(_journals[index]['id']),
+                        ),
+                      ],
+                    ),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => _deleteItem(_journals[index]['id']),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
-
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () =>_showForm(null) ,
+        onPressed: () => _showForm(null),
       ),
     );
-
-
   }
 }
