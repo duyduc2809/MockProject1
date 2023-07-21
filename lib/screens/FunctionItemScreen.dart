@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:mock_project/sql_helper.dart';
-import 'item.dart';
+import '../classes/Item.dart';
+import '../helpers/SQLItemHelper.dart';
+
 
 
 class ItemScreen extends StatelessWidget {
