@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/screens/EditProfile.dart';
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,7 +11,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List pages = [ DashboardForm()];
+  List pages = [ DashboardForm(), const EditProfile()];
   int currentIndex = 0;
 
   void onTap(int index) {
@@ -102,7 +103,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.edit,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  DashboardForm()));
+                  builder: (context) => const EditProfile()));
             },
           ),
           DrawerListTile(
