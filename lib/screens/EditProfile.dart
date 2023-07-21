@@ -18,14 +18,10 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return 
+       Scaffold(
           appBar: AppBar(
-            leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
             title: const Text('Edit Profile'),
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-            ],
           ),
           body: Container(
             padding: const EdgeInsets.all(10),
@@ -82,7 +78,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ],
                 )),
-          )),
+          ),
     );
   }
 }
