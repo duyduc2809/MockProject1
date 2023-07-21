@@ -3,25 +3,29 @@ import 'package:mock_prj1/Validator.dart';
 import 'package:mock_prj1/constants/TextStyleConstant.dart';
 import '../classes/Account.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class ChangePassWord extends StatefulWidget {
+  const ChangePassWord({super.key});
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<ChangePassWord> createState() => _ChangePassWordState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _ChangePassWordState extends State<ChangePassWord> {
   final _formkey = GlobalKey<FormState>();
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _emailController = TextEditingController();
+  final _currentPassController = TextEditingController();
+  final _newPassController = TextEditingController();
+  final _confirmnewPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return 
-       Scaffold(
+    return MaterialApp(
+      home: Scaffold(
           appBar: AppBar(
-            title: const Text('Edit Profile'),
+            leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+            title: const Text('Change Password'),
+            actions: [
+              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+            ],
           ),
           body: Container(
             padding: const EdgeInsets.all(10),
@@ -32,37 +36,39 @@ class _EditProfileState extends State<EditProfile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    const Text('Edit Your Profie'),
+                    const Text('Change Your Password'),
                     const SizedBox(height: 20),
                     TextFormField(
-                      controller: _firstNameController,
-                      validator: (value) => Validator.nameValidator(value),
+                      controller: _currentPassController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'First name',
+                        hintText: 'Enter current password',
+                        hintStyle: hintTextStyle,
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      controller: _lastNameController,
-                      validator: (value) => Validator.nameValidator(value),
+                      controller: _newPassController,
+                      validator: (value) => Validator.passwordValidator(value),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: 'Last name',
+                        hintText: 'Enter new password',
+                        hintStyle: hintTextStyle,
                       ),
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     TextFormField(
-                      controller: _emailController,
-                      validator: (value) => Validator.emailValidator(value),
+                      controller: _confirmnewPassController,
+                      validator: (value) => Validator.confirmPasswordValidator(
+                          value, _newPassController),
                       decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
-                      ),
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter password again',
+                          hintStyle: hintTextStyle),
                     ),
                     const SizedBox(
                       height: 20,
@@ -78,7 +84,7 @@ class _EditProfileState extends State<EditProfile> {
                     ),
                   ],
                 )),
-          ),
+          )),
     );
   }
 }
