@@ -22,8 +22,8 @@ class SQLAccountHelper {
   static Future<Database> db() async {
     return openDatabase(_accountPath, version: 1,
         onCreate: (Database database, int version) async {
-          await createAccountTable(database);
-        });
+      await createAccountTable(database);
+    });
   }
 
   //Create new account
@@ -64,5 +64,26 @@ class SQLAccountHelper {
     } catch (err) {
       debugPrint("Something went wrong when deleting an account: $err");
     }
+  }
+
+  static Future<int> saveUser(String email, String password) async {
+    var db = await SQLAccountHelper.db();
+    var result =
+        await db.insert(_accountsTable, {email: email, password: password});
+    return result;
+  }
+
+  static Future<Map<String, dynamic>?> getAccountToSave() async {
+    var db = await SQLAccountHelper.db();
+    var result = await db.query(
+      _accountsTable,
+      columns: [_columnId, _columnEmail, _columnPassword],
+    );
+
+    if (result.length > 0) {
+      return result.first;
+    }
+
+    return null;
   }
 }
