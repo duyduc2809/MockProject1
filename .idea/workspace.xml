@@ -9,11 +9,20 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6480cb92-d70b-4d0d-a022-5768fc237767" name="Changes" comment="add PrefHelper.dart, add more property for Account.dart and add Logout Func">
-      <change beforePath="$PROJECT_DIR$/.idea/MockProject1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MockProject1.iml" afterDir="false" />
+    <list default="true" id="6480cb92-d70b-4d0d-a022-5768fc237767" name="Changes" comment="Merge branch 'Register+Login-Account' of https://github.com/duyduc2809/MockProject1 into Register+Login-Account&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/helpers/SQLAccountHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/helpers/SQLAccountHelper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/FunctionItemScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/FunctionItemScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/homeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/homeScreen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/LoginForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/LoginForm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/RegisterForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/RegisterForm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

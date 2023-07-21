@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
 import 'package:mock_prj1/screens/EditProfile.dart';
 import '../helpers/PrefHelper.dart';
 import 'DualFormScreen.dart';
+import 'FunctionItemScreen.dart';
+
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,6 +59,7 @@ class NavigationDrawer extends StatelessWidget {
   Widget buildMenuItems(BuildContext context) => Column(
         children: [
           DrawerHeader(child: Image.asset("assets/images/logo.jpg")),
+          Text('${SQLAccountHelper.currentAccount['email']}'),
           DrawerListTile(
             title: "Dashboard",
             icon: Icons.dashboard_sharp,
@@ -69,7 +73,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DashboardForm(),
+                  builder: (context) => ItemScreen(),
                   settings: const RouteSettings(arguments: 'Category')));
             },
           ),
@@ -78,7 +82,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.low_priority_sharp,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm(),
+                  MaterialPageRoute(builder: (context) => const ItemScreen(),
                       settings: const RouteSettings(arguments: 'Priority')));
             },
           ),
@@ -87,7 +91,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm(),
+                  MaterialPageRoute(builder: (context) => const ItemScreen(),
                       settings: const RouteSettings(arguments: 'Status')));
             },
           ),

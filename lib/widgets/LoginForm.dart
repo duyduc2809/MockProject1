@@ -105,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
         PrefHelper.saveCredentials(
             _rememberMe, _emailController, _passwordController);
         Navigator.push(
-            this.context, MaterialPageRoute(builder: (context) => HomePage()));
+            this.context, MaterialPageRoute(builder: (context) => const HomePage()));
       } else {
         ScaffoldMessenger.of(this.context).showSnackBar(
             const SnackBar(content: Text('Wrong username or password')));
