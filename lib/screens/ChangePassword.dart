@@ -18,14 +18,10 @@ class _ChangePassWordState extends State<ChangePassWord> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return 
+       Scaffold(
           appBar: AppBar(
-            leading: IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
             title: const Text('Change Password'),
-            actions: [
-              IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
-            ],
           ),
           body: Container(
             padding: const EdgeInsets.all(10),
@@ -84,7 +80,6 @@ class _ChangePassWordState extends State<ChangePassWord> {
                     ),
                   ],
                 )),
-          )),
-    );
+          ));
   }
 }
