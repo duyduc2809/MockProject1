@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../classes/Item.dart';
 import '../helpers/SQLItemHelper.dart';
 
-import '../classes/Item.dart';
+
 
 class ItemScreen extends StatelessWidget {
   const ItemScreen({Key? key}) : super(key: key);

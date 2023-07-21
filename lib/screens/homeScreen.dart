@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/screens/EditProfile.dart';
+import 'package:mock_prj1/screens/FunctionItemScreen.dart';
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -67,7 +68,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  DashboardForm()));
+                  builder: (context) =>  ItemScreen()));
             },
           ),
           DrawerListTile(
