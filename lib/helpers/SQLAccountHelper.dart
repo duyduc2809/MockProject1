@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../classes/Account.dart';
 
 class SQLAccountHelper {
+  static late final Map<String, dynamic> currentAccount;
   static const _accountsTable = 'accounts';
   static const _columnId = 'id';
   static const _columnEmail = 'email';
@@ -83,7 +84,37 @@ class SQLAccountHelper {
     if (result.length > 0) {
       return result.first;
     }
-
     return null;
   }
+
+  static Future<Map<String, dynamic>?> getAccountById(int id) async {
+    var db = await SQLAccountHelper.db();
+    var result = await db.query(
+      _accountsTable,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (result.isNotEmpty) {
+      return result.first;
+    } else {
+      return null;
+    }
+  }
+
+  static setCurrentAccount(TextEditingController emailController) async {
+    var db = await SQLAccountHelper.db();
+    List<Map<String, dynamic>> result = await db.query(
+      _accountsTable,
+      where: 'email = ?',
+      whereArgs: [emailController.text],
+    );
+
+    if (result.isNotEmpty) {
+      currentAccount = result.first;
+    } else {
+      return null;
+    }
+  }
+
 }

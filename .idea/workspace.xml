@@ -145,6 +145,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="delete &quot;username&quot; property in Account.dart" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete &quot;username&quot; property in Account.dart" />
+    <MESSAGE value="add PrefHelper.dart, add more property for Account.dart and add Logout Func" />
+    <option name="LAST_COMMIT_MESSAGE" value="add PrefHelper.dart, add more property for Account.dart and add Logout Func" />
   </component>
 </project>
