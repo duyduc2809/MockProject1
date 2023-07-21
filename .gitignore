@@ -1,0 +1,13 @@
+/.flutter-plugins-dependencies
+/.dart_tool
+/.idea
+/android
+/build
+/ios
+/linux
+/macos
+/web
+/windows
+/.flutter-plugins
+/main.dart
+.flutter-plugins-dependencies
