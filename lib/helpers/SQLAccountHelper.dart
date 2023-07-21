@@ -4,7 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import '../classes/Account.dart';
 
 class SQLAccountHelper {
-  static late final Map<String, dynamic> currentAccount;
+  static late Map<String, dynamic> currentAccount;
   static const _accountsTable = 'accounts';
   static const _columnId = 'id';
   static const _columnEmail = 'email';
