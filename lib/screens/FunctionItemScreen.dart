@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../helpers/SQLItemHelper.dart';
+
 import '../classes/Item.dart';
 
 class ItemScreen extends StatelessWidget {
@@ -22,7 +23,8 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  late String _function = 'status';
+  late String _function = ModalRoute.of(context)?.settings.arguments as String;
+
   late String _title;
 
   List<Map<String, dynamic>> _journals = [];
@@ -53,10 +55,8 @@ class _HomePageState extends State<_HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _refreshJournals();
-    _createTitle();
   }
 
   final TextEditingController _titleController = TextEditingController();
