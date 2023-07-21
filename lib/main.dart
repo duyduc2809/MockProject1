@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/screens/DualFormScreen.dart';
 import 'package:mock_prj1/screens/homeScreen.dart';
@@ -12,7 +11,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DualFormScreen(),
     );
