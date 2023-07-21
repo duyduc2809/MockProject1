@@ -144,7 +144,7 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: const Text('Category'),
       ),
       body: _isLoading
           ? const Center(
