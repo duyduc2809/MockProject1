@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 import '../classes/Item.dart';
 import '../helpers/SQLItemHelper.dart';
 
-
-
 class ItemScreen extends StatelessWidget {
   const ItemScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: _HomePage(),
+    return const Scaffold(
+      body:  _HomePage(),
     );
   }
 }
@@ -26,18 +24,20 @@ class _HomePageState extends State<_HomePage> {
   late String _function = 'status';
   late String _title;
 
-
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
 
-  void _createTitle(){
-    switch(_function){
+  void _createTitle() {
+    switch (_function) {
       case 'category':
-        _title = 'Category';break;
+        _title = 'Category';
+        break;
       case 'priority':
-        _title = 'Priority';break;
+        _title = 'Priority';
+        break;
       case 'status':
-        _title = 'Status';break;
+        _title = 'Status';
+        break;
     }
   }
 
@@ -144,7 +144,7 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_function + ' Form'),
+        title: const Text('Edit Profile'),
       ),
       body: _isLoading
           ? const Center(

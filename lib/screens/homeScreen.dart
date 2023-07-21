@@ -68,7 +68,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  ItemScreen()));
+                  builder: (context) => const ItemScreen()));
             },
           ),
           DrawerListTile(
