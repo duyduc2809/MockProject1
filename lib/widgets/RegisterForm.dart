@@ -68,6 +68,8 @@ class RegisterForm extends StatelessWidget {
     await SQLAccountHelper.createAccount(Account(
       email: _emailController.text,
       password: _passwordController.text,
+      firstName: '',
+      lastName: '',
     ));
   }
 }

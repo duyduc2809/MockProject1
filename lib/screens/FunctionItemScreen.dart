@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../classes/Item.dart';
+
 import '../helpers/SQLItemHelper.dart';
+
+import '../classes/Item.dart';
 
 class ItemScreen extends StatelessWidget {
   const ItemScreen({Key? key}) : super(key: key);
@@ -9,6 +11,8 @@ class ItemScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: _HomePage(),
+    return const MaterialApp(
+      home: _HomePage(),
     );
   }
 }
@@ -21,25 +25,10 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  late String _function = 'status';
-  late String _title;
+  late String _function = ModalRoute.of(context)?.settings.arguments as String;
 
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
-
-  void _createTitle() {
-    switch (_function) {
-      case 'category':
-        _title = 'Category';
-        break;
-      case 'priority':
-        _title = 'Priority';
-        break;
-      case 'status':
-        _title = 'Status';
-        break;
-    }
-  }
 
   Future<void> _refreshJournals() async {
     final data = await SQLHelper.getItems(_function);

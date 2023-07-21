@@ -4,11 +4,13 @@ import 'package:sqflite/sqflite.dart';
 import '../classes/Account.dart';
 
 class SQLAccountHelper {
-  static late final Map<String, dynamic> currentAccount;
+  static late Map<String, dynamic> currentAccount;
   static const _accountsTable = 'accounts';
   static const _columnId = 'id';
   static const _columnEmail = 'email';
   static const _columnPassword = 'password';
+  static const _columnFirstName = 'firstName';
+  static const _columnLastName = 'lastName';
   static const _columnCreateAt = 'createAt';
   static const _accountPath = 'accounts.db';
 
@@ -17,6 +19,8 @@ class SQLAccountHelper {
     $_columnId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     $_columnEmail TEXT NOT NULL, 
     $_columnPassword TEXT NOT NULL, 
+    $_columnFirstName TEXT,
+    $_columnLastName TEXT,
     $_columnCreateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)''');
   }
 
@@ -31,8 +35,7 @@ class SQLAccountHelper {
   static Future<int> createAccount(Account account) async {
     final db = await SQLAccountHelper.db();
     final id = await db.insert(_accountsTable, account.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.ignore);
-
+        conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
 
@@ -111,10 +114,10 @@ class SQLAccountHelper {
     );
 
     if (result.isNotEmpty) {
+      print('${result.first}');
       currentAccount = result.first;
     } else {
       return null;
     }
   }
-
 }
