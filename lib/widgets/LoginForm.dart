@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/screens/ItemScreen.dart';
-import 'package:path/path.dart';
+import 'package:mock_prj1/helpers/PrefHelper.dart';
 import '../Validator.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../screens/HomeScreen.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onSwitchForm;
@@ -26,44 +29,16 @@ class _LoginFormState extends State<LoginForm> {
     _loadRememberMeStatus();
   }
 
-  // _loadRememberMeStatus() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _rememberMe = prefs.getBool('rememberMe') ?? false;
-  //     if (_rememberMe) {
-  //       _loadSavedCredentials();
-  //       _login(context as BuildContext);
-  //     }
-  //   });
-  // }
   _loadRememberMeStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _rememberMe = prefs.getBool('rememberMe') ?? false;
       if (_rememberMe) {
-        _loadSavedCredentials();
+        PrefHelper.loadSavedCredentials(
+            _passwordController, _passwordController);
         _login();
       }
     });
-  }
-
-  _loadSavedCredentials() async {
-    var user = await SQLAccountHelper.getAccountToSave();
-    if (user != null) {
-      _emailController.text = user['email'].toString();
-      _passwordController.text = user['password'].toString();
-    }
-  }
-
-  _saveCredentials() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('rememberMe', _rememberMe);
-    if (_rememberMe) {
-      String email = _emailController.text;
-      String password = _passwordController.text;
-      SQLAccountHelper db = SQLAccountHelper();
-      await SQLAccountHelper.saveUser(email, password);
-    }
   }
 
   @override
@@ -110,7 +85,11 @@ class _LoginFormState extends State<LoginForm> {
                       }
                     },
                     child: const Text('Sign in')),
-                ElevatedButton(onPressed: () {}, child: const Text('Exit'))
+                ElevatedButton(
+                    onPressed: () {
+                      exit(0);
+                    },
+                    child: const Text('Exit'))
               ],
             )
           ],
@@ -122,9 +101,10 @@ class _LoginFormState extends State<LoginForm> {
     account.forEach((acc) {
       if (acc['email'] == _emailController.text &&
           acc['password'] == _passwordController.text) {
-        _saveCredentials();
-        Navigator.push(this.context,
-            MaterialPageRoute(builder: (context) => ItemsScreen()));
+        PrefHelper.saveCredentials(
+            _rememberMe, _emailController, _passwordController);
+        Navigator.push(
+            this.context, MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         ScaffoldMessenger.of(this.context).showSnackBar(
             const SnackBar(content: Text('Wrong username or password')));

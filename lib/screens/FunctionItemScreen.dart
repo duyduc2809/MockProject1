@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-
 import '../classes/Item.dart';
 import '../helpers/SQLItemHelper.dart';
-
-
 
 class ItemScreen extends StatelessWidget {
   const ItemScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: _HomePage(),
+    return const Scaffold(
+      body: _HomePage(),
     );
   }
 }
@@ -24,8 +21,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  late String _function = ModalRoute.of(context)?.settings.arguments as String;
-
+  late String _function = 'status';
   late String _title;
 
   List<Map<String, dynamic>> _journals = [];
