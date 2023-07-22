@@ -1,17 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/constants/DimensionConstant.dart';
 import 'package:mock_prj1/helpers/PrefHelper.dart';
 import '../Validator.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/HomeScreen.dart';
+import 'CustomInputDecoration.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onSwitchForm;
 
-  LoginForm({required this.onSwitchForm});
+  LoginForm({super.key, required this.onSwitchForm});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -47,12 +49,14 @@ class _LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: [
+            const SizedBox(height: spaceBetweenField,),
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration: const InputDecoration(
+              decoration:  CustomInputDecoration(
                   prefixIcon: Icon(Icons.email), hintText: 'Email'),
             ),
+            const SizedBox(height: spaceBetweenField,),
             TextFormField(
               obscureText: true,
               controller: _passwordController,
@@ -62,11 +66,11 @@ class _LoginFormState extends State<LoginForm> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
+              decoration: CustomInputDecoration(
                   prefixIcon: Icon(Icons.lock), hintText: 'Password'),
             ),
             CheckboxListTile(
-              title: Text("Remember me"),
+              title: const Text("Remember me"),
               value: _rememberMe,
               onChanged: (value) {
                 setState(() {
@@ -98,7 +102,7 @@ class _LoginFormState extends State<LoginForm> {
 
   _login() async {
     final account = await SQLAccountHelper.getAccounts();
-    account.forEach((acc) {
+    for (var acc in account) {
       if (acc['email'] == _emailController.text &&
           acc['password'] == _passwordController.text) {
         SQLAccountHelper.setCurrentAccount(_emailController);
@@ -110,6 +114,6 @@ class _LoginFormState extends State<LoginForm> {
         ScaffoldMessenger.of(this.context).showSnackBar(
             const SnackBar(content: Text('Wrong username or password')));
       }
-    });
+    }
   }
 }
