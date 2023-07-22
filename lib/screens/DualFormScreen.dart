@@ -18,10 +18,10 @@ class _DualFormScreenState extends State<DualFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentForm == FormType.login ? 'Đăng nhập' : 'Đăng ký'),
+        title: Text('Note Management System'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(kTopPadding),
+        padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

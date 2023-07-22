@@ -3,6 +3,8 @@ import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
 
 import '../Validator.dart';
 import '../classes/Account.dart';
+import '../constants/DimensionConstant.dart';
+import 'CustomInputDecoration.dart';
 
 class RegisterForm extends StatelessWidget {
   final VoidCallback onSwitchForm;
@@ -20,26 +22,29 @@ class RegisterForm extends StatelessWidget {
         key: _formkey,
         child: Column(
           children: [
+            const SizedBox(height: spaceBetweenField,),
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email), hintText: 'Email'),
+              decoration:  CustomInputDecoration(
+                  prefixIcon: const Icon(Icons.email), hintText: 'Email'),
             ),
+            const SizedBox(height: spaceBetweenField,),
             TextFormField(
               obscureText: true,
               controller: _passwordController,
               validator: (value) => Validator.passwordValidator(value),
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock), hintText: 'Password'),
+              decoration:  CustomInputDecoration(
+                  prefixIcon: const Icon(Icons.lock), hintText: 'Password'),
             ),
+            const SizedBox(height: spaceBetweenField,),
             TextFormField(
               obscureText: true,
               controller: _confirmPassController,
               validator: (value) => Validator.confirmPasswordValidator(
                   value, _passwordController),
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock), hintText: 'Confirm password'),
+              decoration:  CustomInputDecoration(
+                  prefixIcon: const Icon(Icons.lock), hintText: 'Confirm password'),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
