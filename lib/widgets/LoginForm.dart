@@ -13,7 +13,7 @@ import 'CustomInputDecoration.dart';
 class LoginForm extends StatefulWidget {
   final VoidCallback onSwitchForm;
 
-  LoginForm({super.key, required this.onSwitchForm});
+  const LoginForm({super.key, required this.onSwitchForm});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -49,14 +49,18 @@ class _LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: [
-            const SizedBox(height: spaceBetweenField,),
+            const SizedBox(
+              height: spaceBetweenField,
+            ),
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration:  CustomInputDecoration(
-                  prefixIcon: Icon(Icons.email), hintText: 'Email'),
+              decoration: CustomInputDecoration(
+                  prefixIcon: const Icon(Icons.email), hintText: 'Email'),
             ),
-            const SizedBox(height: spaceBetweenField,),
+            const SizedBox(
+              height: spaceBetweenField,
+            ),
             TextFormField(
               obscureText: true,
               controller: _passwordController,
@@ -101,19 +105,22 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _login() async {
+    bool isLoginSuccess = false;
     final account = await SQLAccountHelper.getAccounts();
     for (var acc in account) {
       if (acc['email'] == _emailController.text &&
           acc['password'] == _passwordController.text) {
+        isLoginSuccess = true;
         SQLAccountHelper.setCurrentAccount(_emailController);
         PrefHelper.saveCredentials(
             _rememberMe, _emailController, _passwordController);
-        Navigator.push(
-            this.context, MaterialPageRoute(builder: (context) => const HomePage()));
-      } else {
-        ScaffoldMessenger.of(this.context).showSnackBar(
-            const SnackBar(content: Text('Wrong username or password')));
+        Navigator.push(this.context,
+            MaterialPageRoute(builder: (context) => const HomePage()));
       }
     }
+    !isLoginSuccess
+        ? ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Wrong username or password')))
+        : null;
   }
 }

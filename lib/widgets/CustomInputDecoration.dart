@@ -15,9 +15,9 @@ class CustomInputDecoration extends InputDecoration {
     enabled: enabled,
     border: const OutlineInputBorder(),
     // Customize the properties below according to your needs
-    focusedBorder: const OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-    ),
+    // focusedBorder: const OutlineInputBorder(
+    //   borderSide: BorderSide(color: Colors.blue, width: 2.0),
+    // ),
     enabledBorder: const OutlineInputBorder(
       borderSide: BorderSide(color: Colors.grey, width: 1.0),
     ),
@@ -28,6 +28,6 @@ class CustomInputDecoration extends InputDecoration {
       borderSide: BorderSide(color: Colors.red, width: 2.0),
     ),
     labelStyle: const TextStyle(color: Colors.green),
-    hintStyle: const TextStyle(color: Colors.grey),
+    // hintStyle: const TextStyle(color: Colors.grey),
   );
 }

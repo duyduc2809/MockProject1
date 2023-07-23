@@ -4,6 +4,7 @@ import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
 import '../Validator.dart';
 import '../classes/Account.dart';
 import '../constants/DimensionConstant.dart';
+import 'AsyncTextFormField.dart';
 import 'CustomInputDecoration.dart';
 
 class RegisterForm extends StatelessWidget {
@@ -16,35 +17,50 @@ class RegisterForm extends StatelessWidget {
   final _confirmPassController = TextEditingController();
   final _emailController = TextEditingController();
 
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
         key: _formkey,
         child: Column(
           children: [
-            const SizedBox(height: spaceBetweenField,),
-            TextFormField(
-              controller: _emailController,
-              validator: (value) => Validator.emailValidator(value),
-              decoration:  CustomInputDecoration(
-                  prefixIcon: const Icon(Icons.email), hintText: 'Email'),
+            const SizedBox(
+              height: spaceBetweenField,
             ),
-            const SizedBox(height: spaceBetweenField,),
+            AsyncTextFormField(
+              validator: (value) => Validator.isValidEmail(value),
+              validationDebounce: const Duration(milliseconds: 200),
+              controller: _emailController,
+              prefixIcon: const Icon(Icons.email),
+              valueIsEmptyMessage: 'Please enter an email',
+              valueIsInvalidMessage: 'Invalid email or email already exists',
+              hintText: 'Email',
+            ),
+            const SizedBox(
+              height: spaceBetweenField,
+            ),
             TextFormField(
               obscureText: true,
               controller: _passwordController,
               validator: (value) => Validator.passwordValidator(value),
-              decoration:  CustomInputDecoration(
+              decoration: CustomInputDecoration(
                   prefixIcon: const Icon(Icons.lock), hintText: 'Password'),
             ),
-            const SizedBox(height: spaceBetweenField,),
+            const SizedBox(
+              height: spaceBetweenField,
+            ),
             TextFormField(
               obscureText: true,
               controller: _confirmPassController,
               validator: (value) => Validator.confirmPasswordValidator(
                   value, _passwordController),
-              decoration:  CustomInputDecoration(
-                  prefixIcon: const Icon(Icons.lock), hintText: 'Confirm password'),
+              decoration: CustomInputDecoration(
+                  prefixIcon: const Icon(Icons.lock),
+                  hintText: 'Confirm password'),
+            ),
+            const SizedBox(
+              height: spaceBetweenField,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -58,6 +74,7 @@ class RegisterForm extends StatelessWidget {
                         _addAccount();
                         _emailController.text = '';
                         _passwordController.text = '';
+                        _confirmPassController.text = '';
                       }
                     },
                     child: const Text('Sign up')),
