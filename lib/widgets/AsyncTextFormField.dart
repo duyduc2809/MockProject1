@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../constants/DimensionConstant.dart';
+
 class AsyncTextFormField extends StatefulWidget {
   final Future<bool> Function(String) validator;
   final Duration validationDebounce;
@@ -11,17 +13,19 @@ class AsyncTextFormField extends StatefulWidget {
   final String valueIsEmptyMessage;
   final String valueIsInvalidMessage;
   final Icon? prefixIcon;
+  final String labelText;
 
   const AsyncTextFormField(
       {Key? key,
       required this.validator,
       required this.validationDebounce,
       required this.controller,
-      this.isValidatingMessage = "Checking...",
+      this.isValidatingMessage = "",
       this.valueIsEmptyMessage = '',
       this.valueIsInvalidMessage = '',
       this.hintText = '',
-      this.prefixIcon})
+      this.prefixIcon,
+      this.labelText = ''})
       : super(key: key);
 
   @override
@@ -41,7 +45,8 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (isValidating) {
-          return widget.isValidatingMessage;
+          // return widget.isValidatingMessage;
+          return null;
         }
         if (value?.isEmpty ?? false) {
           return widget.valueIsEmptyMessage;
@@ -76,13 +81,16 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
       maxLines: 1,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        labelText: widget.labelText,
           suffix: Container(
               alignment: Alignment.center,
               width: 15,
               height: 15,
-              child: Container( child: _getSuffixIcon())),
+              child: Container(child: _getSuffixIcon())),
           hintText: widget.hintText,
-          border: const OutlineInputBorder(),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(kMediumPadding),
+          ),
           prefixIcon: widget.prefixIcon),
     );
   }
