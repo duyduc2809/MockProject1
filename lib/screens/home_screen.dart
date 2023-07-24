@@ -6,7 +6,7 @@ import '../helpers/PrefHelper.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'ChangePassword.dart';
 import 'DualFormScreen.dart';
-import 'dashboardScreen.dart';
+import 'dashboard_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

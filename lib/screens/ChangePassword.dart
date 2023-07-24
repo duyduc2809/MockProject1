@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/Validator.dart';
 import 'package:mock_prj1/constants/TextStyleConstant.dart';
-import 'package:mock_prj1/screens/homeScreen.dart';
+import 'package:mock_prj1/screens/home_screen.dart';
 
 
 class ChangePassWord extends StatefulWidget {
