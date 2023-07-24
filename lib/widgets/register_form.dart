@@ -61,18 +61,17 @@ class _RegisterFormState extends State<RegisterForm> {
               validator: (value) => Validator.passwordValidator(value),
               decoration: CustomInputDecoration(
                 labelText: 'Password',
-                  suffixIcon: IconButton(
-                    icon: _isPassObscure
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isPassObscure = !_isPassObscure;
-                      });
-                    },
-                  ),
-
-                 ),
+                suffixIcon: IconButton(
+                  icon: _isPassObscure
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isPassObscure = !_isPassObscure;
+                    });
+                  },
+                ),
+              ),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -84,18 +83,17 @@ class _RegisterFormState extends State<RegisterForm> {
                   value, _passwordController),
               decoration: CustomInputDecoration(
                 labelText: 'Confirm password',
-                  suffixIcon: IconButton(
-                    icon: _isConfirmPassObscure
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isConfirmPassObscure = !_isConfirmPassObscure;
-                      });
-                    },
-                  ),
-
-               ),
+                suffixIcon: IconButton(
+                  icon: _isConfirmPassObscure
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isConfirmPassObscure = !_isConfirmPassObscure;
+                    });
+                  },
+                ),
+              ),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -117,7 +115,6 @@ class _RegisterFormState extends State<RegisterForm> {
                   }
                 },
                 child: const Text('Sign Up')),
-
           ],
         ));
   }
