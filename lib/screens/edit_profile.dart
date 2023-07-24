@@ -4,6 +4,8 @@ import 'package:mock_prj1/constants/TextStyleConstant.dart';
 import 'package:mock_prj1/widgets/CustomInputDecoration.dart';
 import '../classes/Account.dart';
 import '../widgets/AsyncTextFormField.dart';
+import '../helpers/SQLAccountHelper.dart';
+import '../screens/HomeScreen.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -65,14 +67,6 @@ class _EditProfileState extends State<EditProfile> {
                       'Invalid email or email already exists',
                   hintText: 'name@example.com',
                 ),
-                // TextFormField(
-                //   controller: _emailController,
-                //   validator: (value) => Validator.emailValidator(value),
-                //   decoration: const InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     labelText: 'Email',
-                //   ),
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -80,8 +74,34 @@ class _EditProfileState extends State<EditProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                        onPressed: () {}, child: const Text('Change')),
-                    ElevatedButton(onPressed: () {}, child: const Text('Home'))
+                        onPressed: () {
+                          if (_formkey.currentState!.validate()) {
+                            SQLAccountHelper.updateAccount(Account(
+                                firstName: _firstNameController.text,
+                                lastName: _lastNameController.text,
+                                email: _emailController.text,
+                                id: SQLAccountHelper.currentAccount['id'],
+                                password: SQLAccountHelper
+                                    .currentAccount['password']));
+                            SQLAccountHelper.setCurrentAccount(
+                                _emailController);
+                            print(SQLAccountHelper.currentAccount['id']);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Edit successful! Your information updated')));
+                          }
+                        },
+                        child: const Text('Change')),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              this.context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomePage()));
+                        },
+                        child: const Text('Home'))
                   ],
                 ),
               ],

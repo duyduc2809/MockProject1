@@ -1,14 +1,12 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/constants/DimensionConstant.dart';
-import 'package:mock_prj1/helpers/PrefHelper.dart';
-import '../Validator.dart';
-import '../helpers/SQLAccountHelper.dart';
+import 'package:mock_prj1/constants/dimension_constant.dart';
+import 'package:mock_prj1/helpers/pref_helper.dart';
+import '../validator.dart';
+import '../helpers/sql_account_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/HomeScreen.dart';
-import 'CustomInputDecoration.dart';
+import 'custom_input_decoration.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onSwitchForm;
