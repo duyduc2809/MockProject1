@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/Validator.dart';
 import 'package:mock_prj1/constants/TextStyleConstant.dart';
-import 'package:mock_prj1/widgets/CustomInputDecoration.dart';
+import 'package:mock_prj1/widgets/custom_input_decoration.dart';
 import '../classes/Account.dart';
-import '../widgets/AsyncTextFormField.dart';
+import '../widgets/custom_text_form_field.dart';
 import '../helpers/SQLAccountHelper.dart';
 import '../screens/HomeScreen.dart';
 

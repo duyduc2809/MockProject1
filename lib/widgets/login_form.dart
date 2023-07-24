@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/constants/DimensionConstant.dart';
-import 'package:mock_prj1/helpers/PrefHelper.dart';
-import '../Validator.dart';
-import '../helpers/SQLAccountHelper.dart';
+import 'package:mock_prj1/constants/dimension_constant.dart';
+import 'package:mock_prj1/helpers/pref_helper.dart';
+import '../validator.dart';
+import '../helpers/sql_account_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/HomeScreen.dart';
@@ -57,8 +55,9 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration: CustomInputDecoration(
-                  labelText: 'Email', hintText: 'name@example.com'),
+              decoration:  CustomInputDecoration(
+                labelText: 'Email' ,
+                   hintText: 'name@example.com'),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -74,24 +73,26 @@ class _LoginFormState extends State<LoginForm> {
               },
               decoration: CustomInputDecoration(
                 labelText: 'Password',
-                suffixIcon: IconButton(
-                  icon: _isObscureText
-                      ? const Icon(Icons.visibility_off)
-                      : const Icon(Icons.visibility),
-                  onPressed: () {
-                    setState(() {
-                      _isObscureText = !_isObscureText;
-                    });
-                  },
+                  suffixIcon: IconButton(
+                    icon: _isObscureText
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _isObscureText = !_isObscureText;
+                      });
+                    },
+                  ),
+
                 ),
-              ),
             ),
+
             SizedBox(
               height: spaceBetweenField,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(55),
+                  minimumSize: const Size.fromHeight(55),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kMediumPadding))),
                 onPressed: () async {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
+import 'package:mock_prj1/helpers/sql_account_helper.dart';
 
-import '../Validator.dart';
-import '../classes/Account.dart';
-import '../constants/DimensionConstant.dart';
-import 'custom_text_form_field.dart';
+import '../validator.dart';
+import '../classes/account.dart';
+import '../constants/dimension_constant.dart';
+import 'async_text_form_field.dart';
 import 'custom_input_decoration.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -61,17 +61,18 @@ class _RegisterFormState extends State<RegisterForm> {
               validator: (value) => Validator.passwordValidator(value),
               decoration: CustomInputDecoration(
                 labelText: 'Password',
-                suffixIcon: IconButton(
-                  icon: _isPassObscure
-                      ? const Icon(Icons.visibility_off)
-                      : const Icon(Icons.visibility),
-                  onPressed: () {
-                    setState(() {
-                      _isPassObscure = !_isPassObscure;
-                    });
-                  },
-                ),
-              ),
+                  suffixIcon: IconButton(
+                    icon: _isPassObscure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _isPassObscure = !_isPassObscure;
+                      });
+                    },
+                  ),
+
+                 ),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -83,17 +84,18 @@ class _RegisterFormState extends State<RegisterForm> {
                   value, _passwordController),
               decoration: CustomInputDecoration(
                 labelText: 'Confirm password',
-                suffixIcon: IconButton(
-                  icon: _isConfirmPassObscure
-                      ? const Icon(Icons.visibility_off)
-                      : const Icon(Icons.visibility),
-                  onPressed: () {
-                    setState(() {
-                      _isConfirmPassObscure = !_isConfirmPassObscure;
-                    });
-                  },
-                ),
-              ),
+                  suffixIcon: IconButton(
+                    icon: _isConfirmPassObscure
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        _isConfirmPassObscure = !_isConfirmPassObscure;
+                      });
+                    },
+                  ),
+
+               ),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -115,6 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   }
                 },
                 child: const Text('Sign Up')),
+
           ],
         ));
   }
