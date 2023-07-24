@@ -4,29 +4,42 @@ import '../helpers/SQLItemHelper.dart';
 
 import '../classes/Item.dart';
 
-class ItemScreen extends StatelessWidget {
-  const ItemScreen({Key? key}) : super(key: key);
+class FunctionItemScreen extends StatelessWidget {
+  const FunctionItemScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: _HomePage(),
+    String functionGet = ModalRoute.of(context)?.settings.arguments as String;
+    return MaterialApp(
+      home: _HomePage(function: functionGet),
     );
   }
 }
 
 class _HomePage extends StatefulWidget {
-  const _HomePage({Key? key}) : super(key: key);
+  final String function;
+  const _HomePage({Key? key, required this.function}) : super(key: key);
 
   @override
   State<_HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<_HomePage> {
+<<<<<<< HEAD
+  late final String _function;
+=======
   late String _function = ModalRoute.of(context)?.settings.arguments as String;
+>>>>>>> main
 
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _function = widget.function;
+    _refreshJournals();
+  }
 
   Future<void> _refreshJournals() async {
     final data = await SQLHelper.getItems(_function);
@@ -35,12 +48,6 @@ class _HomePageState extends State<_HomePage> {
       _journals = data;
       _isLoading = false;
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _refreshJournals();
   }
 
   final TextEditingController _titleController = TextEditingController();
