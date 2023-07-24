@@ -6,8 +6,8 @@ import '../helpers/PrefHelper.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'ChangePassword.dart';
 import 'DualFormScreen.dart';
-import 'FunctionItemScreen.dart';
 
+import 'ItemScreen.dart';
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePage> {
-  List pages = [DashboardForm(), const EditProfile()];
+  List pages = [DashboardForm(), const EditProfile(), const ChangePassWord()];
   int currentIndex = 0;
 
   void onTap(int index) {
