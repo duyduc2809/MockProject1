@@ -109,7 +109,7 @@ class _EditProfileState extends State<EditProfile> {
                     ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => const HomePage()));
                         },
                         child: const Text('Home'))
                   ],
