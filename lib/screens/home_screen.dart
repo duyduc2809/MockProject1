@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
-import 'package:mock_prj1/screens/EditProfile.dart';
-import '../helpers/PrefHelper.dart';
-import 'DualFormScreen.dart';
-import 'FunctionItemScreen.dart';
-
-import 'dashboardScreen.dart';
+import 'package:mock_prj1/screens/FunctionItemScreen.dart';
+import '../helpers/pref_helper.dart';
+import '../helpers/sql_account_helper.dart';
+import 'authentication_screen.dart';
+import 'change_password.dart';
+import 'dashboard_screen.dart';
+import 'edit_profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,8 +15,9 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
-  List pages = [DashboardForm(), const EditProfile()];
+  List pages = [DashboardForm(), const EditProfile(), const ChangePassWord()];
   int currentIndex = 0;
 
   void onTap(int index) {
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -79,7 +80,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
+                  builder: (context) => const ItemScreen(),                  
                   settings: const RouteSettings(arguments: 'Category')));
             },
           ),
@@ -87,18 +88,18 @@ class NavigationDrawer extends StatelessWidget {
             title: "Priority",
             icon: Icons.low_priority_sharp,
             press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
-                  settings: const RouteSettings(arguments: 'Priority')));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ItemScreen(),
+                      settings: const RouteSettings(arguments: 'Priority')));
             },
           ),
           DrawerListTile(
             title: "Status",
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
-                  settings: const RouteSettings(arguments: 'Status')));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ItemScreen(),
+                      settings: const RouteSettings(arguments: 'Status')));
             },
           ),
           DrawerListTile(
@@ -126,7 +127,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.change_circle,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm()));
+                  MaterialPageRoute(builder: (context) => const ChangePassWord()));
             },
           ),
           DrawerListTile(
@@ -136,7 +137,7 @@ class NavigationDrawer extends StatelessWidget {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) {
                 PrefHelper.clearSavedCredentials();
-                return DualFormScreen();
+                return const DualFormScreen();
               }), (route) => false);
             },
           ),

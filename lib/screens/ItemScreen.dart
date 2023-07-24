@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
-import 'package:mock_prj1/screens/DualFormScreen.dart';
-
-import '../Validator.dart';
-import '../classes/Account.dart';
+import '../validator.dart';
+import '../classes/account.dart';
+import '../helpers/sql_account_helper.dart';
+import 'authentication_screen.dart';
 
 
 class ItemsScreen extends StatelessWidget {
