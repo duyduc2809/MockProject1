@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
   List pages = [DashboardForm(), const EditProfile()];
   int currentIndex = 0;
@@ -80,7 +79,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ItemScreen(),
+                  builder: (context) => const FunctionItemScreen(),
                   settings: const RouteSettings(arguments: 'Category')));
             },
           ),
@@ -88,18 +87,18 @@ class NavigationDrawer extends StatelessWidget {
             title: "Priority",
             icon: Icons.low_priority_sharp,
             press: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ItemScreen(),
-                      settings: const RouteSettings(arguments: 'Priority')));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FunctionItemScreen(),
+                  settings: const RouteSettings(arguments: 'Priority')));
             },
           ),
           DrawerListTile(
             title: "Status",
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ItemScreen(),
-                      settings: const RouteSettings(arguments: 'Status')));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const FunctionItemScreen(),
+                  settings: const RouteSettings(arguments: 'Status')));
             },
           ),
           DrawerListTile(
