@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/constants/dimension_constant.dart';
-import 'package:mock_prj1/helpers/pref_helper.dart';
-import '../validator.dart';
-import '../helpers/sql_account_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../screens/HomeScreen.dart';
+import '../constants/dimension_constant.dart';
+import '../helpers/pref_helper.dart';
+import '../helpers/sql_account_helper.dart';
+import '../screens/home_screen.dart';
+import '../validator.dart';
 import 'custom_input_decoration.dart';
 
 class LoginForm extends StatefulWidget {

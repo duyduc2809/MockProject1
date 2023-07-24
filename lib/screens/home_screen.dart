@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/screens/EditProfile.dart';
 import 'package:mock_prj1/screens/FunctionItemScreen.dart';
-import '../helpers/PrefHelper.dart';
-import '../helpers/SQLAccountHelper.dart';
-import 'ChangePassword.dart';
-import 'DualFormScreen.dart';
+import '../helpers/pref_helper.dart';
+import '../helpers/sql_account_helper.dart';
+import 'authentication_screen.dart';
+import 'change_password.dart';
 import 'dashboard_screen.dart';
+import 'edit_profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

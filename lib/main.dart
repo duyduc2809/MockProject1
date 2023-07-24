@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/screens/DualFormScreen.dart';
+import 'screens/authentication_screen.dart';
+
 
 
 void main() {

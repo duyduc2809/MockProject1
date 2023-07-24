@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/Validator.dart';
-import 'package:mock_prj1/screens/HomeScreen.dart';
-import 'package:mock_prj1/widgets/CustomInputDecoration.dart';
-import '../classes/Account.dart';
-import '../helpers/SQLAccountHelper.dart';
-import '../widgets/AsyncTextFormField.dart';
-
+import 'package:mock_prj1/validator.dart';
+import '../classes/account.dart';
+import '../helpers/sql_account_helper.dart';
+import '../widgets/async_text_form_field.dart';
+import '../widgets/custom_input_decoration.dart';
+import 'home_screen.dart';
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
