@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../helpers/sql_function_item_helper.dart';
-
 import '../classes/Item.dart';
+import '../helpers/sql_function_item_helper.dart';
 
 class FunctionItemScreen extends StatelessWidget {
   const FunctionItemScreen({Key? key}) : super(key: key);
@@ -10,8 +8,8 @@ class FunctionItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String functionGet = ModalRoute.of(context)?.settings.arguments as String;
-    return MaterialApp(
-      home: _HomePage(function: functionGet),
+    return Scaffold(
+      body: _HomePage(function: functionGet),
     );
   }
 }
