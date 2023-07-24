@@ -8,8 +8,8 @@ class FunctionItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String functionGet = ModalRoute.of(context)?.settings.arguments as String;
-    return MaterialApp(
-      home: _HomePage(function: functionGet),
+    return Scaffold(
+      body: _HomePage(function: functionGet),
     );
   }
 }
