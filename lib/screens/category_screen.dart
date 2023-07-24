@@ -25,7 +25,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  late final String _function;
+  late String _function = ModalRoute.of(context)?.settings.arguments as String;
 
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
