@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       // buttonTheme: ButtonTheme(buttonColor: Colors.black),
       // appBarTheme: AppBarTheme(color: Colors.black)),
       debugShowCheckedModeBanner: false,
-      home: DualFormScreen(),
+      home: HomePage(),
     );
   }
 }
