@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/helpers/SQLAccountHelper.dart';
+import 'package:mock_prj1/helpers/sql_account_helper.dart';
 
-import '../Validator.dart';
-import '../classes/Account.dart';
-import '../constants/DimensionConstant.dart';
-import 'AsyncTextFormField.dart';
-import 'CustomInputDecoration.dart';
+import '../validator.dart';
+import '../classes/account.dart';
+import '../constants/dimension_constant.dart';
+import 'async_text_form_field.dart';
+import 'custom_input_decoration.dart';
 
 class RegisterForm extends StatefulWidget {
   final VoidCallback onSwitchForm;

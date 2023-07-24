@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/DimensionConstant.dart';
+import '../constants/dimension_constant.dart';
 
 class CustomInputDecoration extends InputDecoration {
   CustomInputDecoration({

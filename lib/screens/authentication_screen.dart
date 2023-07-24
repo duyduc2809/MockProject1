@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/constants/DimensionConstant.dart';
+import 'package:mock_prj1/constants/dimension_constant.dart';
 
-import '../widgets/LoginForm.dart';
-import '../widgets/RegisterForm.dart';
+import '../widgets/login_form.dart';
+import '../widgets/register_form.dart';
 
 enum FormType { login, register }
 

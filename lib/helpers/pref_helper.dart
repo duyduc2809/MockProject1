@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'SQLAccountHelper.dart';
+import 'sql_account_helper.dart';
 
 class PrefHelper {
-
-
   static loadSavedCredentials(TextEditingController emailController,
       TextEditingController passwordController) async {
     var user = await SQLAccountHelper.getAccountToSave();
@@ -30,6 +28,4 @@ class PrefHelper {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('rememberMe');
   }
-
-
 }
