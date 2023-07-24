@@ -1,10 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/screens/ChangePassword.dart';
 import 'package:mock_prj1/screens/EditProfile.dart';
 import 'package:mock_prj1/screens/FunctionItemScreen.dart';
 import '../helpers/PrefHelper.dart';
+import '../helpers/SQLAccountHelper.dart';
+import 'ChangePassword.dart';
 import 'DualFormScreen.dart';
+import 'FunctionItemScreen.dart';
+
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +17,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
 class _HomePageState extends State<HomePage> {
   List pages = [DashboardForm(), const EditProfile()];
   int currentIndex = 0;
@@ -22,6 +26,12 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -58,6 +68,7 @@ class NavigationDrawer extends StatelessWidget {
   Widget buildMenuItems(BuildContext context) => Column(
         children: [
           DrawerHeader(child: Image.asset("assets/images/logo.jpg")),
+          Text('${SQLAccountHelper.currentAccount['email']}'),
           DrawerListTile(
             title: "Dashboard",
             icon: Icons.dashboard_sharp,
@@ -71,7 +82,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ItemScreen(),
+                  builder: (context) => const ItemScreen(),                  
                   settings: const RouteSettings(arguments: 'Category')));
             },
           ),

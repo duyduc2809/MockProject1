@@ -1,17 +1,19 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/constants/DimensionConstant.dart';
 import 'package:mock_prj1/helpers/PrefHelper.dart';
 import '../Validator.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/HomeScreen.dart';
+import 'CustomInputDecoration.dart';
 
 class LoginForm extends StatefulWidget {
   final VoidCallback onSwitchForm;
 
-  LoginForm({required this.onSwitchForm});
+  const LoginForm({super.key, required this.onSwitchForm});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -21,12 +23,14 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  late bool _isObscureText;
   bool _rememberMe = false;
 
   @override
   void initState() {
     super.initState();
     _loadRememberMeStatus();
+    _isObscureText = true;
   }
 
   _loadRememberMeStatus() async {
@@ -47,14 +51,21 @@ class _LoginFormState extends State<LoginForm> {
         key: _formKey,
         child: Column(
           children: [
+            const SizedBox(
+              height: spaceBetweenField,
+            ),
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.email), hintText: 'Email'),
+              decoration:  CustomInputDecoration(
+                labelText: 'Email' ,
+                   hintText: 'name@example.com'),
+            ),
+            const SizedBox(
+              height: spaceBetweenField,
             ),
             TextFormField(
-              obscureText: true,
+              obscureText: _isObscureText,
               controller: _passwordController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -62,53 +73,73 @@ class _LoginFormState extends State<LoginForm> {
                 }
                 return null;
               },
-              decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.lock), hintText: 'Password'),
-            ),
-            CheckboxListTile(
-              title: Text("Remember me"),
-              value: _rememberMe,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value!;
-                  print(value);
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _login();
-                      }
-                    },
-                    child: const Text('Sign in')),
-                ElevatedButton(
+              decoration: CustomInputDecoration(
+                labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: _isObscureText
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                     onPressed: () {
-                      exit(0);
+                      setState(() {
+                        _isObscureText = !_isObscureText;
+                      });
                     },
-                    child: const Text('Exit'))
+                  ),
+
+                ),
+            ),
+
+            SizedBox(
+              height: spaceBetweenField,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(55),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(kMediumPadding))),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _login();
+                  }
+                },
+                child: const Text(
+                  'Log In',
+                )),
+            Row(
+              children: [
+                Checkbox(
+                  value: _rememberMe,
+                  onChanged: (value) {
+                    setState(() {
+                      _rememberMe = value!;
+                      print(value);
+                    });
+                  },
+                ),
+                Text('Remember me')
               ],
-            )
+            ),
           ],
         ));
   }
 
   _login() async {
+    bool isLoginSuccess = false;
     final account = await SQLAccountHelper.getAccounts();
-    account.forEach((acc) {
+    for (var acc in account) {
       if (acc['email'] == _emailController.text &&
           acc['password'] == _passwordController.text) {
+        isLoginSuccess = true;
+        SQLAccountHelper.setCurrentAccount(_emailController);
         PrefHelper.saveCredentials(
             _rememberMe, _emailController, _passwordController);
-        Navigator.push(
-            this.context, MaterialPageRoute(builder: (context) => HomePage()));
-      } else {
-        ScaffoldMessenger.of(this.context).showSnackBar(
-            const SnackBar(content: Text('Wrong username or password')));
+        Navigator.push(this.context,
+            MaterialPageRoute(builder: (context) => const HomePage()));
       }
-    });
+    }
+    !isLoginSuccess
+        ? ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Wrong username or password')))
+        : null;
   }
 }

@@ -9,42 +9,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6480cb92-d70b-4d0d-a022-5768fc237767" name="Changes" comment="add more dependencies">
-      <change afterPath="$PROJECT_DIR$/.dart_tool/dartpad/web_plugin_registrant.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/logo.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/flutter_02.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/ChangePassword.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/DualFormScreen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/EditProfile.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/ItemScreen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/dashboardScreen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/homeScreen.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/LoginForm.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/RegisterForm.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.dart_tool/package_config_subset" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/package_config_subset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+    <list default="true" id="6480cb92-d70b-4d0d-a022-5768fc237767" name="Changes" comment="completed current account">
+      <change afterPath="$PROJECT_DIR$/lib/widgets/AsyncTextFormField.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Validator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Validator.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/constants/TextStyleConstant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/TextStyleConstant.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/helpers/SQLAccountHelper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/helpers/SQLAccountHelper.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/routes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/routes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/SignInScreen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/linux/flutter/generated_plugins.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.cc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugin_registrant.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/windows/flutter/generated_plugins.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/homeScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/homeScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/CustomInputDecoration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/CustomInputDecoration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/LoginForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/LoginForm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/RegisterForm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/RegisterForm.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +93,21 @@
       <option name="project" value="LOCAL" />
       <updated>1689867067555</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add PrefHelper.dart, add more property for Account.dart and add Logout Func">
+      <created>1689956822645</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689956822645</updated>
+    </task>
+    <task id="LOCAL-00003" summary="completed current account">
+      <created>1689961694284</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1689961694284</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -146,6 +134,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="delete &quot;username&quot; property in Account.dart" />
     <MESSAGE value="add PrefHelper.dart, add more property for Account.dart and add Logout Func" />
-    <option name="LAST_COMMIT_MESSAGE" value="add PrefHelper.dart, add more property for Account.dart and add Logout Func" />
+    <MESSAGE value="completed current account" />
+    <option name="LAST_COMMIT_MESSAGE" value="completed current account" />
   </component>
 </project>
