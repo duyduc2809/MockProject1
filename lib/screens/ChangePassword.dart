@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mock_prj1/Validator.dart';
 import 'package:mock_prj1/constants/TextStyleConstant.dart';
 import 'package:mock_prj1/screens/homeScreen.dart';
-import '../classes/Account.dart';
+
 
 class ChangePassWord extends StatefulWidget {
   const ChangePassWord({super.key});

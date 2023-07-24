@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/Validator.dart';
-import 'package:mock_prj1/constants/TextStyleConstant.dart';
 import 'package:mock_prj1/screens/HomeScreen.dart';
 import 'package:mock_prj1/widgets/CustomInputDecoration.dart';
 import '../classes/Account.dart';

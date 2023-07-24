@@ -6,8 +6,6 @@ import '../helpers/PrefHelper.dart';
 import '../helpers/SQLAccountHelper.dart';
 import 'ChangePassword.dart';
 import 'DualFormScreen.dart';
-
-import 'ItemScreen.dart';
 import 'dashboardScreen.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -139,7 +137,7 @@ class NavigationDrawer extends StatelessWidget {
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) {
                 PrefHelper.clearSavedCredentials();
-                return DualFormScreen();
+                return const DualFormScreen();
               }), (route) => false);
             },
           ),
