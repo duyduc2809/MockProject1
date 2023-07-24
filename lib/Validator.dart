@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'helpers/SQLAccountHelper.dart';
+import 'helpers/sql_account_helper.dart';
 
 class Validator {
   static const validEmail =
@@ -47,7 +47,7 @@ class Validator {
     }
   }  static Future<bool> emailFieldValidator(String value) async {
     final db = await SQLAccountHelper.getAccounts();
-    if (value == null || value.isEmpty) {
+    if (value.isEmpty) {
       return false;
     } else if (!RegExp(validEmail).hasMatch(value)) {
       return false;
