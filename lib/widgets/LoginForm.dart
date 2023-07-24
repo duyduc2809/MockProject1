@@ -23,12 +23,14 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
+  late bool _isObscureText;
   bool _rememberMe = false;
 
   @override
   void initState() {
     super.initState();
     _loadRememberMeStatus();
+    _isObscureText = true;
   }
 
   _loadRememberMeStatus() async {
@@ -55,14 +57,15 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration: CustomInputDecoration(
-                  prefixIcon: const Icon(Icons.email), hintText: 'Email'),
+              decoration:  CustomInputDecoration(
+                labelText: 'Email' ,
+                   hintText: 'name@example.com'),
             ),
             const SizedBox(
               height: spaceBetweenField,
             ),
             TextFormField(
-              obscureText: true,
+              obscureText: _isObscureText,
               controller: _passwordController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -71,35 +74,51 @@ class _LoginFormState extends State<LoginForm> {
                 return null;
               },
               decoration: CustomInputDecoration(
-                  prefixIcon: Icon(Icons.lock), hintText: 'Password'),
-            ),
-            CheckboxListTile(
-              title: const Text("Remember me"),
-              value: _rememberMe,
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value!;
-                  print(value);
-                });
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _login();
-                      }
-                    },
-                    child: const Text('Sign in')),
-                ElevatedButton(
+                labelText: 'Password',
+                  suffixIcon: IconButton(
+                    icon: _isObscureText
+                        ? const Icon(Icons.visibility_off)
+                        : const Icon(Icons.visibility),
                     onPressed: () {
-                      exit(0);
+                      setState(() {
+                        _isObscureText = !_isObscureText;
+                      });
                     },
-                    child: const Text('Exit'))
+                  ),
+
+                ),
+            ),
+
+            SizedBox(
+              height: spaceBetweenField,
+            ),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(55),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(kMediumPadding))),
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    _login();
+                  }
+                },
+                child: const Text(
+                  'Log In',
+                )),
+            Row(
+              children: [
+                Checkbox(
+                  value: _rememberMe,
+                  onChanged: (value) {
+                    setState(() {
+                      _rememberMe = value!;
+                      print(value);
+                    });
+                  },
+                ),
+                Text('Remember me')
               ],
-            )
+            ),
           ],
         ));
   }

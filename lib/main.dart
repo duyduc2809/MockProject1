@@ -12,6 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light()
+            .copyWith(primary: Colors.black, secondary: Colors.orange),
+      ),
+      // buttonTheme: ButtonTheme(buttonColor: Colors.black),
+      // appBarTheme: AppBarTheme(color: Colors.black)),
       debugShowCheckedModeBanner: false,
       home: DualFormScreen(),
     );
