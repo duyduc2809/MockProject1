@@ -12,7 +12,7 @@ class SQLAccountHelper {
   static const _columnFirstName = 'firstName';
   static const _columnLastName = 'lastName';
   static const _columnCreateAt = 'createAt';
-  static const _accountPath = 'accounts.db';
+  static const _accountPath = 'mock.db';
 
   static Future<void> createAccountTable(Database database) async {
     await database.execute('''CREATE TABLE $_accountsTable(
