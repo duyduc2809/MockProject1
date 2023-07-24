@@ -90,7 +90,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.low_priority_sharp,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ItemsScreen(),
+                  MaterialPageRoute(builder: (context) => const FunctionItemScreen(),
                       settings: const RouteSettings(arguments: 'Priority')));
             },
           ),
@@ -99,7 +99,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ItemsScreen(),
+                  MaterialPageRoute(builder: (context) => const FunctionItemScreen(),
                       settings: const RouteSettings(arguments: 'Status')));
             },
           ),
