@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../helpers/SQLItemHelper.dart';
-
 import '../classes/Item.dart';
+import '../helpers/sql_function_item_helper.dart';
 
 class FunctionItemScreen extends StatelessWidget {
   const FunctionItemScreen({Key? key}) : super(key: key);
@@ -25,11 +23,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-<<<<<<< HEAD
-  late final String _function;
-=======
   late String _function = ModalRoute.of(context)?.settings.arguments as String;
->>>>>>> main
 
   List<Map<String, dynamic>> _journals = [];
   bool _isLoading = true;
