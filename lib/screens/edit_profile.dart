@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/Validator.dart';
-import 'package:mock_prj1/constants/TextStyleConstant.dart';
-import 'package:mock_prj1/widgets/CustomInputDecoration.dart';
-import '../classes/Account.dart';
-import '../widgets/AsyncTextFormField.dart';
-import '../helpers/SQLAccountHelper.dart';
-import '../screens/HomeScreen.dart';
-
+import 'package:mock_prj1/validator.dart';
+import '../classes/account.dart';
+import '../helpers/sql_account_helper.dart';
+import '../widgets/async_text_form_field.dart';
+import '../widgets/custom_input_decoration.dart';
+import 'home_screen.dart';
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
@@ -67,6 +65,14 @@ class _EditProfileState extends State<EditProfile> {
                       'Invalid email or email already exists',
                   hintText: 'name@example.com',
                 ),
+                // TextFormField(
+                //   controller: _emailController,
+                //   validator: (value) => Validator.emailValidator(value),
+                //   decoration: const InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     labelText: 'Email',
+                //   ),
+                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -77,8 +83,6 @@ class _EditProfileState extends State<EditProfile> {
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             SQLAccountHelper.updateAccount(Account(
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
                                 email: _emailController.text,
                                 id: SQLAccountHelper.currentAccount['id'],
                                 password: SQLAccountHelper
@@ -86,20 +90,24 @@ class _EditProfileState extends State<EditProfile> {
                             SQLAccountHelper.setCurrentAccount(
                                 _emailController);
                             print(SQLAccountHelper.currentAccount['id']);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Edit successful! Your information updated')));
                           }
+                          AsyncTextFormField(
+                            labelText: 'Email',
+                            validator: (value) => Validator.isValidEmail(value),
+                            validationDebounce:
+                                const Duration(milliseconds: 200),
+                            controller: _emailController,
+                            valueIsEmptyMessage: 'Please enter an email',
+                            valueIsInvalidMessage:
+                                'Invalid email or email already exists',
+                            hintText: 'name@example.com',
+                          );
                         },
                         child: const Text('Change')),
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              this.context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomePage()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const HomePage()));
                         },
                         child: const Text('Home'))
                   ],
