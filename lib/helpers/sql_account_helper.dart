@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-
+import 'sql_function_item_helper.dart';
 import '../classes/account.dart';
+import '../classes/Item.dart';
 
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
@@ -27,10 +28,21 @@ class SQLAccountHelper {
     $_columnCreateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)''');
   }
 
+  static Future<void> createItemTable(Database database) async {
+    await database.execute('''CREATE TABLE items(
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    userId INTEGER,
+    function TEXT,
+    name TEXT,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    )''');
+  }
+
   static Future<Database> db() async {
     return openDatabase(_accountPath, version: 1,
         onCreate: (Database database, int version) async {
       await createAccountTable(database);
+      await createItemTable(database);
     });
   }
 
@@ -123,4 +135,44 @@ class SQLAccountHelper {
       return null;
     }
   }
+
+  // static Future<int> createItem(Item item) async {
+  //   final db = await SQLAccountHelper.db();
+  //   final id = await db.insert('items', item.toMap(),
+  //       conflictAlgorithm: ConflictAlgorithm.replace);
+
+  //   return id;
+  // }
+
+  // static Future<List<Map<String, dynamic>>> getItems(String function) async {
+  //   final db = await SQLAccountHelper.db();
+
+  //   return db.query('items',
+  //       orderBy: "id", where: "function = ?", whereArgs: [function]);
+  // }
+
+  // static Future<List<Map<String, dynamic>>> getItem(int id) async {
+  //   final db = await SQLAccountHelper.db();
+
+  //   return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
+  // }
+
+  // static Future<int> updateItem(Item item) async {
+  //   final db = await SQLAccountHelper.db();
+
+  //   final result = await db
+  //       .update('items', item.toMap(), where: "id = ?", whereArgs: [item.id]);
+
+  //   return result;
+  // }
+
+  // static Future<void> deleteItem(int id) async {
+  //   final db = await SQLAccountHelper.db();
+
+  //   try {
+  //     await db.delete("items", where: "id = ?", whereArgs: [id]);
+  //   } catch (err) {
+  //     debugPrint("ST wrong : $err");
+  //   }
+  // }
 }

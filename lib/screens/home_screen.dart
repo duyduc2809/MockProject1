@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/screens/category_screen.dart';
+import 'package:mock_prj1/screens/priority_screen.dart';
+import 'package:mock_prj1/screens/status_screen.dart';
 import '../helpers/pref_helper.dart';
 import '../helpers/sql_account_helper.dart';
 import 'authentication_screen.dart';
@@ -9,14 +11,12 @@ import 'dashboard_screen.dart';
 import 'edit_profile_screen.dart';
 import 'note_screen.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 
 class _HomePageState extends State<HomePage> {
   List pages = [DashboardForm(), const EditProfile(), const ChangePassWord()];
@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -82,26 +81,27 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),                  
-                  settings: const RouteSettings(arguments: 'Category')));
+                builder: (context) => const CategoryItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
             title: "Priority",
             icon: Icons.low_priority_sharp,
             press: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const FunctionItemScreen(),
-                      settings: const RouteSettings(arguments: 'Priority')));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const PriorityItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
             title: "Status",
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const FunctionItemScreen(),
-                      settings: const RouteSettings(arguments: 'Status')));
+
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const StatusItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
