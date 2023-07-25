@@ -109,7 +109,6 @@ class _RegisterFormState extends State<RegisterForm> {
                         content: Text(
                             'Register successful! Your information: \nEmail: ${_emailController.text}')));
                     _addAccount();
-                    _emailController.text = '';
                     _passwordController.text = '';
                     _confirmPassController.text = '';
                   }
