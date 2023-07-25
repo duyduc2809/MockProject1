@@ -7,6 +7,7 @@ import 'DualFormScreen.dart';
 import 'FunctionItemScreen.dart';
 
 import 'dashboardScreen.dart';
+import 'noteScreen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -106,7 +107,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.note_add,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm()));
+                  MaterialPageRoute(builder: (context) => AddNoteScreen()));
             },
           ),
           const Text(
