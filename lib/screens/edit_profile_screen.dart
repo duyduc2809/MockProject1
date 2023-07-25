@@ -21,9 +21,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Profile'),
-      ),
       body: Container(
         padding: const EdgeInsets.all(10),
         child: Form(
