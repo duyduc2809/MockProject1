@@ -1,3 +1,4 @@
+// ignore: file_names
 class Account {
   final int? id;
   final String? password;

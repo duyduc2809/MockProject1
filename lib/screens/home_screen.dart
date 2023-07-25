@@ -6,9 +6,10 @@ import 'package:mock_prj1/screens/status_screen.dart';
 import '../helpers/pref_helper.dart';
 import '../helpers/sql_account_helper.dart';
 import 'authentication_screen.dart';
-import 'change_password.dart';
+import 'change_password_screen.dart';
 import 'dashboard_screen.dart';
-import 'edit_profile.dart';
+import 'edit_profile_screen.dart';
+import 'note_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -97,6 +98,7 @@ class NavigationDrawer extends StatelessWidget {
             title: "Status",
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
+
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const StatusItemScreen(),
               ));
@@ -107,7 +109,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.note_add,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm()));
+                  MaterialPageRoute(builder: (context) => AddNoteScreen()));
             },
           ),
           const Text(
@@ -126,8 +128,8 @@ class NavigationDrawer extends StatelessWidget {
             title: "Change password",
             icon: Icons.change_circle,
             press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const ChangePassWord()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ChangePassWord()));
             },
           ),
           DrawerListTile(
