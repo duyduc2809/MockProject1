@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'helpers/sql_account_helper.dart';
+
 class Validator {
   static const validEmail =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
@@ -24,13 +26,39 @@ class Validator {
     return null;
   }
 
-  static String? emailValidator(String? value) {
+  // static Future<String?> emailValidator(String? value) async {
+  //   if (value == null || value.isEmpty) {
+  //     return 'Please enter your email';
+  //   } else if (!RegExp(validEmail).hasMatch(value)) {
+  //     return invalidEmailString;
+  //   } else if (await _checkEmailExisted(value)) {
+  //     return 'Email existed!';
+  //   }
+  //   return null;
+  // }
+
+  static String? emailValidator(String? value)  {
     if (value == null || value.isEmpty) {
-      return 'Please enter your email';
+      return 'Please enter email';
     } else if (!RegExp(validEmail).hasMatch(value)) {
-      return invalidEmailString;
+      return 'Invalid email!';
+    } else {
+      return null;
     }
-    return null;
+  }  static Future<bool> emailFieldValidator(String value) async {
+    final db = await SQLAccountHelper.getAccounts();
+    if (value.isEmpty) {
+      return false;
+    } else if (!RegExp(validEmail).hasMatch(value)) {
+      return false;
+    } else {
+      for(var acc in db) {
+        if(value == acc['email']) {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 
   static String? nameValidator(String? value) {
@@ -39,4 +67,10 @@ class Validator {
     }
     return null;
   }
+
+  static Future<bool> isValidEmail(String value) async {
+    return await Future.delayed(
+        const Duration(seconds: 1), () => Validator.emailFieldValidator(value));
+  }
+
 }

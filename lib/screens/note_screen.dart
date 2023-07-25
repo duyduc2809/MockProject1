@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../classes/Note.dart';
 
-import '../helpers/SQLAccountHelper.dart';
-import '../helpers/SQLNoteHelper.dart';
+import '../helpers/sql_account_helper.dart';
+import '../helpers/sql_note_helper.dart';
 
 class AddNoteScreen extends StatefulWidget {
   @override

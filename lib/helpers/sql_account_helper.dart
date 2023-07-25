@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../classes/Account.dart';
+import '../classes/account.dart';
 
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
@@ -12,7 +12,7 @@ class SQLAccountHelper {
   static const _columnFirstName = 'firstName';
   static const _columnLastName = 'lastName';
   static const _columnCreateAt = 'createAt';
-  static const _accountPath = 'accounts.db';
+  static const _accountPath = 'mock.db';
 
   static String get accountsTable => _accountsTable;
   static String get columnId => _columnId;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import '../classes/Note.dart';
-import 'SQLAccountHelper.dart';
+import 'sql_account_helper.dart';
 
 class SQLNoteHelper{
   static late Map<String, dynamic> currentNote;
