@@ -56,7 +56,7 @@ class _HomePageState extends State<_HomePage> {
         context: context,
         elevation: 5,
         isScrollControlled: true,
-        builder: (_) => Container(
+        builder: (context) => Container(
               padding: EdgeInsets.only(
                 top: 15,
                 left: 15,
@@ -131,9 +131,6 @@ class _HomePageState extends State<_HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_function + ' Form'),
-      ),
       body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(),
