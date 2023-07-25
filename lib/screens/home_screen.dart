@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/screens/category_screen.dart';
+import 'package:mock_prj1/screens/priority_screen.dart';
+import 'package:mock_prj1/screens/status_screen.dart';
 import '../helpers/pref_helper.dart';
 import '../helpers/sql_account_helper.dart';
 import 'authentication_screen.dart';
@@ -78,8 +80,8 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.category,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
-                  settings: const RouteSettings(arguments: 'Category')));
+                builder: (context) => const CategoryItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
@@ -87,8 +89,8 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.low_priority_sharp,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
-                  settings: const RouteSettings(arguments: 'Priority')));
+                builder: (context) => const PriorityItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
@@ -96,8 +98,8 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.signal_wifi_statusbar_null,
             press: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const FunctionItemScreen(),
-                  settings: const RouteSettings(arguments: 'Status')));
+                builder: (context) => const StatusItemScreen(),
+              ));
             },
           ),
           DrawerListTile(
