@@ -14,6 +14,9 @@ class SQLAccountHelper {
   static const _columnCreateAt = 'createAt';
   static const _accountPath = 'mock.db';
 
+  static String get accountsTable => _accountsTable;
+  static String get columnId => _columnId;
+
   static Future<void> createAccountTable(Database database) async {
     await database.execute('''CREATE TABLE $_accountsTable(
     $_columnId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,

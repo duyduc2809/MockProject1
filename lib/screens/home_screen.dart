@@ -7,6 +7,7 @@ import 'authentication_screen.dart';
 import 'change_password_screen.dart';
 import 'dashboard_screen.dart';
 import 'edit_profile_screen.dart';
+import 'note_screen.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -108,7 +109,7 @@ class NavigationDrawer extends StatelessWidget {
             icon: Icons.note_add,
             press: () {
               Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DashboardForm()));
+                  MaterialPageRoute(builder: (context) => AddNoteScreen()));
             },
           ),
           const Text(
