@@ -1,12 +1,10 @@
-//
-
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/screens/category_screen.dart';
 import 'package:mock_prj1/screens/change_password_screen.dart';
 import 'package:mock_prj1/screens/dashboard_screen.dart';
 import 'package:mock_prj1/screens/edit_profile_screen.dart';
-
 import '../helpers/pref_helper.dart';
+import '../helpers/sql_account_helper.dart';
 import 'authentication_screen.dart';
 
 class HomePage extends StatefulWidget {
@@ -88,6 +86,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Image.asset('assets/images/logo.jpg'),
+              Text('${SQLAccountHelper.currentAccount['email']}'),
               ListTile(
                 title: const Text(
                   _dashboardText,

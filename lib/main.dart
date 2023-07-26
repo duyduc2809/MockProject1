@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/widgets/sidebar_layout.dart';
 import 'screens/authentication_screen.dart';
 
 void main() {
