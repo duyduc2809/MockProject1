@@ -102,7 +102,10 @@ class _HomePageState extends State<HomePage> {
                       const CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.orange,
-                        child: Icon(Icons.person, color: Colors.black,),
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.black,
+                        ),
                       ),
                       const SizedBox(
                         height: 5,
@@ -170,7 +173,10 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-              const Text("Account", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+              const Text(
+                "Account",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
               ListTile(
                 title: const Text(_changePasswordText),
                 leading: const Icon(Icons.change_circle),
@@ -211,11 +217,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getFullName() {
     if (SQLAccountHelper.currentAccount['firstName'] != '' &&
-        SQLAccountHelper.currentAccount['lastName'] != '') {
+            SQLAccountHelper.currentAccount['lastName'] != '' ||
+        SQLAccountHelper.currentAccount['firstName'] != null &&
+            SQLAccountHelper.currentAccount['lastName'] != null) {
       return Text(
-          '${SQLAccountHelper.currentAccount['firstName']} ${SQLAccountHelper.currentAccount['lastName']}', style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),);
+        '${SQLAccountHelper.currentAccount['firstName']} ${SQLAccountHelper.currentAccount['lastName']}',
+        style: TextStyle(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+      );
     } else {
-      return SizedBox(height: 1,);
+      return SizedBox(
+        height: 1,
+      );
     }
   }
 }

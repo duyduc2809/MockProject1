@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../classes/Item.dart';
+import 'package:mock_prj1/classes/status.dart';
+import 'package:mock_prj1/helpers/sql_status_helper.dart';
 import '../helpers/sql_account_helper.dart';
-import '../helpers/sql_function_item_helper.dart';
 
 class StatusItemScreen extends StatelessWidget {
   const StatusItemScreen({Key? key}) : super(key: key);
@@ -35,8 +35,7 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _refreshJournals() async {
-    final data = await SQLHelper.getItems(_function, _currentUserId);
-
+    final data = await SQLStatusHelper.getStatuses(_currentUserId);
     setState(() {
       _journals = data;
       _isLoading = false;
@@ -100,26 +99,26 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _addItem() async {
-    await SQLHelper.createItem(Item(
+    await SQLStatusHelper.createStatus(Status(
       userId: _currentUserId,
-      function: _function,
       name: _titleController.text,
     ));
     _refreshJournals();
   }
 
   Future<void> _updateItem(int id) async {
-    await SQLHelper.createItem(Item(
-      id: id,
-      userId: _currentUserId,
-      function: _function,
-      name: _titleController.text,
-    ));
+    await SQLStatusHelper.updateStatus(
+        Status(
+            id: id,
+            userId: _currentUserId,
+            name: _titleController.text,
+            createdAt: DateTime.now().toString()),
+       );
     _refreshJournals();
   }
 
   Future<void> _deleteItem(int id) async {
-    await SQLHelper.deleteItem(id);
+    await SQLStatusHelper.deleteStatus(id);
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
