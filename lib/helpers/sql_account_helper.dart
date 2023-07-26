@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/helpers/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
-import 'sql_function_item_helper.dart';
 import '../classes/account.dart';
-import '../classes/Item.dart';
+
 
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
@@ -48,27 +48,27 @@ class SQLAccountHelper {
 
   //Create new account
   static Future<int> createAccount(Account account) async {
-    final db = await SQLAccountHelper.db();
+    final db = await DatabaseHelper.db();
     final id = await db.insert(_accountsTable, account.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
     return id;
   }
 
   static Future<List<Map<String, dynamic>>> getAccounts() async {
-    final db = await SQLAccountHelper.db();
+    final db = await DatabaseHelper.db();
 
     return db.query(_accountsTable, orderBy: _columnId);
   }
 
   static Future<List<Map<String, dynamic>>> getAccount(int id) async {
-    final db = await SQLAccountHelper.db();
+    final db = await DatabaseHelper.db();
 
     return db.query(_accountsTable,
         where: "$_columnId = ?", whereArgs: [id], limit: 1);
   }
 
   static Future<int> updateAccount(Account account) async {
-    final db = await SQLAccountHelper.db();
+    final db = await DatabaseHelper.db();
 
     final result = await db.update(_accountsTable, account.toMap(),
         where: "$_columnId = ?", whereArgs: [account.id]);
@@ -76,7 +76,7 @@ class SQLAccountHelper {
   }
 
   static Future<void> deleteAccount(int id) async {
-    final db = await SQLAccountHelper.db();
+    final db = await DatabaseHelper.db();
 
     try {
       await db.delete(_accountsTable, where: "$_columnId = ?", whereArgs: [id]);
@@ -86,14 +86,14 @@ class SQLAccountHelper {
   }
 
   static Future<int> saveUser(String email, String password) async {
-    var db = await SQLAccountHelper.db();
+    var db = await DatabaseHelper.db();
     var result =
         await db.insert(_accountsTable, {email: email, password: password});
     return result;
   }
 
   static Future<Map<String, dynamic>?> getAccountToSave() async {
-    var db = await SQLAccountHelper.db();
+    var db = await DatabaseHelper.db();
     var result = await db.query(
       _accountsTable,
       columns: [_columnId, _columnEmail, _columnPassword],
@@ -106,7 +106,7 @@ class SQLAccountHelper {
   }
 
   static Future<Map<String, dynamic>?> getAccountById(int id) async {
-    var db = await SQLAccountHelper.db();
+    var db = await DatabaseHelper.db();
     var result = await db.query(
       _accountsTable,
       where: 'id = ?',
@@ -121,7 +121,7 @@ class SQLAccountHelper {
   }
 
   static setCurrentAccount(TextEditingController emailController) async {
-    var db = await SQLAccountHelper.db();
+    var db = await DatabaseHelper.db();
     List<Map<String, dynamic>> result = await db.query(
       _accountsTable,
       where: 'email = ?',

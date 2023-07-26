@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../classes/Item.dart';
+import 'package:mock_prj1/classes/Category.dart';
+import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import '../helpers/sql_account_helper.dart';
-import '../helpers/sql_function_item_helper.dart';
 
 class CategoryItemScreen extends StatelessWidget {
   const CategoryItemScreen({Key? key}) : super(key: key);
@@ -35,7 +35,7 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _refreshJournals() async {
-    final data = await SQLHelper.getItems(_function, _currentUserId);
+    final data = await SQLCategoryHelper.getCategories(_currentUserId);
 
     setState(() {
       _journals = data;
@@ -100,26 +100,25 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _addItem() async {
-    await SQLHelper.createItem(Item(
+    await SQLCategoryHelper.createCategory(Category(
       userId: _currentUserId,
-      function: _function,
       name: _titleController.text,
     ));
     _refreshJournals();
   }
 
   Future<void> _updateItem(int id) async {
-    await SQLHelper.createItem(Item(
+    await SQLCategoryHelper.updateCategory(Category(
       id: id,
       userId: _currentUserId,
-      function: _function,
       name: _titleController.text,
-    ));
+      createdAt: DateTime.now().toString()
+    ), );
     _refreshJournals();
   }
 
   Future<void> _deleteItem(int id) async {
-    await SQLHelper.deleteItem(id);
+    await SQLCategoryHelper.deleteCategory(id);
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
