@@ -125,7 +125,7 @@ class _LoginFormState extends State<LoginForm> {
       if (acc['email'] == _emailController.text &&
           acc['password'] == _passwordController.text) {
         isLoginSuccess = true;
-        SQLAccountHelper.setCurrentAccount(_emailController);
+        await SQLAccountHelper.setCurrentAccount(_emailController);
         PrefHelper.saveCredentials(
             _rememberMe, _emailController, _passwordController);
         Navigator.pushAndRemoveUntil(
