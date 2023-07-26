@@ -7,7 +7,13 @@ class Account {
   final String? firstName;
   final String? lastName;
 
-  Account({this.firstName, this.lastName, this.id, this.password, this.email, this.createAt});
+  Account(
+      {this.firstName,
+      this.lastName,
+      this.id,
+      this.password,
+      this.email,
+      this.createAt});
 
   Map<String, dynamic> toMap() {
     return {
