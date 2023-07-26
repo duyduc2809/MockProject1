@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../classes/Item.dart';
+import 'package:mock_prj1/classes/priority.dart';
+import 'package:mock_prj1/helpers/sql_priority_helper.dart';
+
 import '../helpers/sql_account_helper.dart';
-import '../helpers/sql_function_item_helper.dart';
 
 class PriorityItemScreen extends StatelessWidget {
   const PriorityItemScreen({Key? key}) : super(key: key);
@@ -35,7 +36,7 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _refreshJournals() async {
-    final data = await SQLHelper.getItems(_function, _currentUserId);
+    final data = await SQLPriorityHelper.getPriorities(_currentUserId);
 
     setState(() {
       _journals = data;
@@ -100,26 +101,26 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _addItem() async {
-    await SQLHelper.createItem(Item(
+    await SQLPriorityHelper.createPriority(Priority(
       userId: _currentUserId,
-      function: _function,
       name: _titleController.text,
     ));
     _refreshJournals();
   }
 
   Future<void> _updateItem(int id) async {
-    await SQLHelper.createItem(Item(
+    await SQLPriorityHelper.updatePriority(Priority(
       id: id,
       userId: _currentUserId,
-      function: _function,
       name: _titleController.text,
-    ));
+        createdAt: DateTime.now().toString()
+
+    ),);
     _refreshJournals();
   }
 
   Future<void> _deleteItem(int id) async {
-    await SQLHelper.deleteItem(id);
+    await SQLPriorityHelper.deletePriority(id);
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -140,7 +141,7 @@ class _HomePageState extends State<_HomePage> {
               itemCount: _journals.length,
               itemBuilder: (context, index) => Card(
                 color: Colors.orange[200],
-                margin: const EdgeInsets.all(15),
+                margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: ListTile(
                   title: Text('Name: ' + _journals[index]['name']),
                   subtitle:

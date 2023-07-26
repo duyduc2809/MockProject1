@@ -1,11 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:mock_prj1/helpers/sql_category_helper.dart';
+import 'package:mock_prj1/helpers/sql_priority_helper.dart';
+import 'package:mock_prj1/helpers/sql_status_helper.dart';
 
 import '../classes/Note.dart';
 
 import '../helpers/sql_account_helper.dart';
-import '../helpers/sql_function_item_helper.dart';
 import '../helpers/sql_note_helper.dart';
 
 class AddNoteScreen extends StatefulWidget {
@@ -28,7 +30,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   // List of categories, priorities, and statuses to be used for dropdowns
   Future<void> _loadcategories() async {
-    final categories = await SQLHelper.getItems('Category', _idAccount);
+    final categories = await SQLCategoryHelper.getCategories(_idAccount);
 
     setState(() {
       categoryList = categories;
@@ -36,7 +38,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   Future<void> _loadpriorities() async {
-    final priorities = await SQLHelper.getItems('Priority', _idAccount);
+    final priorities = await SQLPriorityHelper.getPriorities(_idAccount);
 
     setState(() {
       priorityList = priorities;
@@ -44,7 +46,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   Future<void> _loadstatuses() async {
-    final statuses = await SQLHelper.getItems('Status', _idAccount);
+    final statuses = await SQLStatusHelper.getStatuses(_idAccount);
 
     setState(() {
       statusList = statuses;
