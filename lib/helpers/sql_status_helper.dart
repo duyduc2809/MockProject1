@@ -35,7 +35,7 @@ class SQLStatusHelper {
   static Future<List<Map<String, dynamic>>> getStatus(int id) async {
     final db = await DatabaseHelper.db();
 
-    return db.query('priority', where: "id = ?", whereArgs: [id], limit: 1);
+    return db.query('status', where: "id = ?", whereArgs: [id], limit: 1);
   }
 
   static Future<int> updateStatus(Status status) async {

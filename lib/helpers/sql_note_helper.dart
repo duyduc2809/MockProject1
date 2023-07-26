@@ -44,6 +44,26 @@ class SQLNoteHelper {
       ON DELETE CASCADE ON UPDATE NO ACTION
   )''');
   }
+//   static Future<Database> db() async {
+//   return openDatabase(
+//     'account.db',
+//     version: 2, // Thay đổi version từ 1 thành 2
+//     onCreate: (Database database, int version) async {
+//       // Enable foreign key support
+//       await database.execute("PRAGMA foreign_keys = ON;");
+//       await createNotesTable(database);
+//     },
+//     onUpgrade: (Database database, int oldVersion, int newVersion) {
+//       // Thực hiện các thay đổi trong cơ sở dữ liệu khi có sự thay đổi version
+//       if (oldVersion < 2) {
+//         // Thêm cột id với tự động tăng
+//         database.execute('''ALTER TABLE $_notesTable
+//           ADD COLUMN $_columnNoteId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+//         ''');
+//       }
+//     },
+//   );
+// }
 
   static Future<int> createNote(Note note) async {
     final db = await DatabaseHelper.db();
