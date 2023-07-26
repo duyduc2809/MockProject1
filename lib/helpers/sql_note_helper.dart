@@ -12,6 +12,7 @@ class SQLNoteHelper{
   static const _columnPriorityName = 'priorityName';
   static const _columnStatusName = 'statusName';
   static const _columnPlanDate = 'planDate';
+  static const _columnCreateAt = 'createdAt';
   static const _columnAccountId = 'accountId';
 
   static Future<void> createNotesTable(Database database) async {
@@ -22,6 +23,7 @@ class SQLNoteHelper{
     $_columnPriorityName TEXT NOT NULL,
     $_columnStatusName TEXT NOT NULL,
     $_columnPlanDate TEXT NOT NULL,
+    $_columnCreateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     $_columnAccountId INTEGER NOT NULL,
     FOREIGN KEY ($_columnAccountId) REFERENCES ${SQLAccountHelper.accountsTable}(${SQLAccountHelper.columnId}) 
       ON DELETE CASCADE ON UPDATE NO ACTION
@@ -74,27 +76,19 @@ static Future<List<Map<String, dynamic>>> getNotes({int? accountId}) async {
   return maps;
 }
 
-  static Future<Note?> getNoteById(int id) async {
-    final db = await SQLNoteHelper.db();
-    final List<Map<String, dynamic>> maps = await db.query(
-      _notesTable,
-      where: '$_columnNoteId = ?',
-      whereArgs: [id],
-    );
-    if (maps.isNotEmpty) {
-      return Note(
-        id: maps[0][_columnNoteId],
-        accountId: maps[0][_columnAccountId],
-        name: maps[0][_columnNoteName],
-        categoryName: maps[0][_columnCategoryName],
-        priorityName: maps[0][_columnPriorityName],
-        statusName: maps[0][_columnStatusName],
-        planDate: maps[0][_columnPlanDate],
-      );
-    } else {
-      return null;
-    }
+  static Future<Map<String, dynamic>?> getNoteById(int id) async {
+  final db = await SQLNoteHelper.db();
+  final List<Map<String, dynamic>> maps = await db.query(
+    _notesTable,
+    where: '$_columnNoteId = ?',
+    whereArgs: [id],
+  );
+  if (maps.isNotEmpty) {
+    return maps[0];
+  } else {
+    return null;
   }
+}
 
   static Future<int> updateNote(Note note) async {
     final db = await SQLNoteHelper.db();
