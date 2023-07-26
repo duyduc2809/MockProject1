@@ -133,7 +133,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       SQLAccountHelper.updateAccount(Account(
-                          firstName: SQLAccountHelper.currentAccount['firstName'],
+                          firstName:
+                              SQLAccountHelper.currentAccount['firstName'],
                           lastName: SQLAccountHelper.currentAccount['lastName'],
                           id: SQLAccountHelper.currentAccount['id'],
                           email: SQLAccountHelper.currentAccount['email'],
