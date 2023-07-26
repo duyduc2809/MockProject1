@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/validator.dart';
 import '../classes/account.dart';
+import '../constants/dimension_constant.dart';
 import '../helpers/sql_account_helper.dart';
 import '../widgets/async_text_form_field.dart';
 import '../widgets/custom_input_decoration.dart';
@@ -15,9 +16,21 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formkey = GlobalKey<FormState>();
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _emailController = TextEditingController();
+
+   final _firstNameController = TextEditingController();
+   final _lastNameController = TextEditingController();
+   final _emailController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //gán giá trị 3 controller bằng giá trị tương ứng của current account
+    _firstNameController.text = SQLAccountHelper.currentAccount['firstName'];
+    _lastNameController.text = SQLAccountHelper.currentAccount['lastName'];
+    _emailController.text = SQLAccountHelper.currentAccount['email'];
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,36 +94,40 @@ class _EditProfileState extends State<EditProfile> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          if (_formkey.currentState!.validate()) {
-                            SQLAccountHelper.updateAccount(Account(
-                                firstName: _firstNameController.text,
-                                lastName: _lastNameController.text,
-                                email: _emailController.text,
-                                id: SQLAccountHelper.currentAccount['id'],
-                                password: SQLAccountHelper
-                                    .currentAccount['password']));
-                            SQLAccountHelper.setCurrentAccount(
-                                _emailController);
-                            print(SQLAccountHelper.currentAccount['id']);
-                          }
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text('Edit successful! ')));
-                        },
-                        child: const Text('Change')),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const HomePage()));
-                        },
-                        child: const Text('Home'))
-                  ],
-                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(55),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(kMediumPadding))),
+                    onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        SQLAccountHelper.updateAccount(Account(
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text,
+                            email: _emailController.text,
+                            id: SQLAccountHelper.currentAccount['id'],
+                            password: SQLAccountHelper
+                                .currentAccount['password']));
+                        SQLAccountHelper.setCurrentAccount(
+                            _emailController);
+                        print(SQLAccountHelper.currentAccount['id']);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Edit successful! ')));
+                    },
+                    child: const Text('Change')),
+                const SizedBox(height: spaceBetweenField / 2,),
+                OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(55),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(kMediumPadding))),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const HomePage()));
+                    },
+                    child: const Text('Cancel')),
               ],
             )),
       ),

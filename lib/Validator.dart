@@ -26,6 +26,14 @@ class Validator {
     return null;
   }
 
+  static String? confirmCurrentPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your current password';
+    } else if (value != SQLAccountHelper.currentAccount['password']) {
+      return 'Password does not match';
+    }
+  }
+
   // static Future<String?> emailValidator(String? value) async {
   //   if (value == null || value.isEmpty) {
   //     return 'Please enter your email';
@@ -37,7 +45,7 @@ class Validator {
   //   return null;
   // }
 
-  static String? emailValidator(String? value)  {
+  static String? emailValidator(String? value) {
     if (value == null || value.isEmpty) {
       return 'Please enter email';
     } else if (!RegExp(validEmail).hasMatch(value)) {
@@ -45,15 +53,17 @@ class Validator {
     } else {
       return null;
     }
-  }  static Future<bool> emailFieldValidator(String value) async {
+  }
+
+  static Future<bool> emailFieldValidator(String value) async {
     final db = await SQLAccountHelper.getAccounts();
     if (value.isEmpty) {
       return false;
     } else if (!RegExp(validEmail).hasMatch(value)) {
       return false;
     } else {
-      for(var acc in db) {
-        if(value == acc['email']) {
+      for (var acc in db) {
+        if (value == acc['email']) {
           return false;
         }
       }
@@ -72,5 +82,4 @@ class Validator {
     return await Future.delayed(
         const Duration(seconds: 1), () => Validator.emailFieldValidator(value));
   }
-
 }

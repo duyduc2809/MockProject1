@@ -111,6 +111,7 @@ class _HomePageState extends State<_HomePage> {
   Future<void> _updateItem(int id) async {
     await SQLHelper.createItem(Item(
       id: id,
+      userId: _currentUserId,
       function: _function,
       name: _titleController.text,
     ));
