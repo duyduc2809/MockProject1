@@ -133,14 +133,16 @@ class _ChangePassWordState extends State<ChangePassWord> {
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       SQLAccountHelper.updateAccount(Account(
+                          firstName: SQLAccountHelper.currentAccount['firstName'],
+                          lastName: SQLAccountHelper.currentAccount['lastName'],
                           id: SQLAccountHelper.currentAccount['id'],
                           email: SQLAccountHelper.currentAccount['email'],
                           password: _newPassController.text));
 
                       print(SQLAccountHelper.currentAccount['id']);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Change successful! ')));
                     }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Change successful! ')));
                   },
                   child: const Text('Change')),
               const SizedBox(

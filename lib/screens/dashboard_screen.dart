@@ -20,7 +20,7 @@ class _DashboardFormState extends State<DashboardForm> {
     final data = await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
 
     setState(() {
-      if (data != null && data.isNotEmpty) {
+      if (data.isNotEmpty) {
         _dataMap = data;
       } else {
         // Handle the case when data is empty or null
@@ -47,16 +47,19 @@ class _DashboardFormState extends State<DashboardForm> {
         child: CircularProgressIndicator(),
       ) : Container(
         child: Center(
-
-          child: Expanded(
-            child: PieChart(
-              dataMap: _dataMap,
-              chartRadius: MediaQuery.of(context).size.width / 1.7,
-              legendOptions:
-                  const LegendOptions(legendPosition: LegendPosition.bottom),
-              chartValuesOptions:
-                  const ChartValuesOptions(showChartValuesInPercentage: true),
-            ),
+          child: Column(
+            children: [
+              Expanded(
+                child: PieChart(
+                  dataMap: _dataMap,
+                  chartRadius: MediaQuery.of(context).size.width / 1.7,
+                  legendOptions:
+                      const LegendOptions(legendPosition: LegendPosition.bottom),
+                  chartValuesOptions:
+                      const ChartValuesOptions(showChartValuesInPercentage: true),
+                ),
+              ),
+            ],
           ),
         ),
       ),

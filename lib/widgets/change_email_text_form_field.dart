@@ -79,9 +79,9 @@ class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
         _debounce = Timer(widget.validationDebounce, () async {
           isWaiting = false;
           isValid = await validate(text);
-          print(isValid);
-          setState(() {});
+
           isValidating = false;
+          setState(() {});
         });
       },
       // textAlign: TextAlign.start,
@@ -119,7 +119,11 @@ class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
     setState(() {
       isValidating = true;
     });
+    if (text == widget.currentEmail) {
+      return true;
+    }
     final isValid = await widget.validator(text);
+
     isValidating = false;
     return isValid;
   }
