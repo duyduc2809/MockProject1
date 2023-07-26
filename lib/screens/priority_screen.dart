@@ -3,8 +3,8 @@ import '../classes/Item.dart';
 import '../helpers/sql_account_helper.dart';
 import '../helpers/sql_function_item_helper.dart';
 
-class CategoryItemScreen extends StatelessWidget {
-  const CategoryItemScreen({Key? key}) : super(key: key);
+class PriorityItemScreen extends StatelessWidget {
+  const PriorityItemScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  final String _function = "Category";
+  final String _function = "Priority";
   final int _currentUserId = SQLAccountHelper.currentAccount['id'];
 
   List<Map<String, dynamic>> _journals = [];
