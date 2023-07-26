@@ -3,8 +3,8 @@ import 'package:mock_prj1/validator.dart';
 import '../classes/account.dart';
 import '../constants/dimension_constant.dart';
 import '../helpers/sql_account_helper.dart';
-import '../widgets/async_text_form_field.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../widgets/custom_text_form_field.dart';
 import 'home_screen.dart';
 
 class EditProfile extends StatefulWidget {

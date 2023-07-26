@@ -23,7 +23,6 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  final String _function = "Priority";
   final int _currentUserId = SQLAccountHelper.currentAccount['id'];
 
   List<Map<String, dynamic>> _journals = [];
@@ -109,13 +108,13 @@ class _HomePageState extends State<_HomePage> {
   }
 
   Future<void> _updateItem(int id) async {
-    await SQLPriorityHelper.updatePriority(Priority(
-      id: id,
-      userId: _currentUserId,
-      name: _titleController.text,
-        createdAt: DateTime.now().toString()
-
-    ),);
+    await SQLPriorityHelper.updatePriority(
+      Priority(
+          id: id,
+          userId: _currentUserId,
+          name: _titleController.text,
+          createdAt: DateTime.now().toString()),
+    );
     _refreshJournals();
   }
 

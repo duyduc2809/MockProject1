@@ -3,7 +3,6 @@ import 'package:mock_prj1/helpers/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
 import '../classes/account.dart';
 
-
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
   static const _accountsTable = 'accounts';
@@ -16,6 +15,7 @@ class SQLAccountHelper {
   static const _accountPath = 'mock.db';
 
   static String get accountsTable => _accountsTable;
+
   static String get columnId => _columnId;
 
   static Future<void> createAccountTable(Database database) async {
@@ -136,43 +136,43 @@ class SQLAccountHelper {
     }
   }
 
-  // static Future<int> createItem(Item item) async {
-  //   final db = await SQLAccountHelper.db();
-  //   final id = await db.insert('items', item.toMap(),
-  //       conflictAlgorithm: ConflictAlgorithm.replace);
+// static Future<int> createItem(Item item) async {
+//   final db = await SQLAccountHelper.db();
+//   final id = await db.insert('items', item.toMap(),
+//       conflictAlgorithm: ConflictAlgorithm.replace);
 
-  //   return id;
-  // }
+//   return id;
+// }
 
-  // static Future<List<Map<String, dynamic>>> getItems(String function) async {
-  //   final db = await SQLAccountHelper.db();
+// static Future<List<Map<String, dynamic>>> getItems(String function) async {
+//   final db = await SQLAccountHelper.db();
 
-  //   return db.query('items',
-  //       orderBy: "id", where: "function = ?", whereArgs: [function]);
-  // }
+//   return db.query('items',
+//       orderBy: "id", where: "function = ?", whereArgs: [function]);
+// }
 
-  // static Future<List<Map<String, dynamic>>> getItem(int id) async {
-  //   final db = await SQLAccountHelper.db();
+// static Future<List<Map<String, dynamic>>> getItem(int id) async {
+//   final db = await SQLAccountHelper.db();
 
-  //   return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
-  // }
+//   return db.query('items', where: "id = ?", whereArgs: [id], limit: 1);
+// }
 
-  // static Future<int> updateItem(Item item) async {
-  //   final db = await SQLAccountHelper.db();
+// static Future<int> updateItem(Item item) async {
+//   final db = await SQLAccountHelper.db();
 
-  //   final result = await db
-  //       .update('items', item.toMap(), where: "id = ?", whereArgs: [item.id]);
+//   final result = await db
+//       .update('items', item.toMap(), where: "id = ?", whereArgs: [item.id]);
 
-  //   return result;
-  // }
+//   return result;
+// }
 
-  // static Future<void> deleteItem(int id) async {
-  //   final db = await SQLAccountHelper.db();
+// static Future<void> deleteItem(int id) async {
+//   final db = await SQLAccountHelper.db();
 
-  //   try {
-  //     await db.delete("items", where: "id = ?", whereArgs: [id]);
-  //   } catch (err) {
-  //     debugPrint("ST wrong : $err");
-  //   }
-  // }
+//   try {
+//     await db.delete("items", where: "id = ?", whereArgs: [id]);
+//   } catch (err) {
+//     debugPrint("ST wrong : $err");
+//   }
+// }
 }

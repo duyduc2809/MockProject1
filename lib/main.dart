@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'screens/authentication_screen.dart';
-import 'screens/note_screen.dart';
 
 void main() {
   runApp(const MyApp());

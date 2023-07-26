@@ -3,7 +3,6 @@ import 'package:mock_prj1/helpers/database_helper.dart';
 import '../classes/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
-import 'sql_account_helper.dart';
 
 class SQLCategoryHelper {
   static Future<void> createCategoryTable(Database database) async {
@@ -23,8 +22,7 @@ class SQLCategoryHelper {
     return id;
   }
 
-  static Future<List<Map<String, dynamic>>> getCategories(
-      int? userId) async {
+  static Future<List<Map<String, dynamic>>> getCategories(int? userId) async {
     final db = await DatabaseHelper.db();
 
     return db.query(
@@ -44,8 +42,8 @@ class SQLCategoryHelper {
   static Future<int> updateCategory(Category category) async {
     final db = await DatabaseHelper.db();
 
-    final result = await db
-        .update('category', category.toMap(), where: "id = ?", whereArgs: [category.id]);
+    final result = await db.update('category', category.toMap(),
+        where: "id = ?", whereArgs: [category.id]);
 
     return result;
   }

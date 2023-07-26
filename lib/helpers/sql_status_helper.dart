@@ -1,11 +1,7 @@
 import 'package:mock_prj1/helpers/database_helper.dart';
-
-import '../classes/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
-import '../classes/priority.dart';
 import '../classes/status.dart';
-import 'sql_account_helper.dart';
 
 class SQLStatusHelper {
   static Future<void> createStatusTable(Database database) async {
@@ -25,8 +21,7 @@ class SQLStatusHelper {
     return id;
   }
 
-  static Future<List<Map<String, dynamic>>> getStatuses(
-      int? userId) async {
+  static Future<List<Map<String, dynamic>>> getStatuses(int? userId) async {
     final db = await DatabaseHelper.db();
 
     return db.query(
@@ -46,8 +41,8 @@ class SQLStatusHelper {
   static Future<int> updateStatus(Status status) async {
     final db = await DatabaseHelper.db();
 
-    final result = await db
-        .update('status', status.toMap(), where: "id = ?", whereArgs: [status.id]);
+    final result = await db.update('status', status.toMap(),
+        where: "id = ?", whereArgs: [status.id]);
 
     return result;
   }

@@ -1,10 +1,8 @@
 import 'package:mock_prj1/helpers/database_helper.dart';
-
-import '../classes/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import '../classes/priority.dart';
-import 'sql_account_helper.dart';
+
 
 class SQLPriorityHelper {
   static Future<void> createPriorityTable(Database database) async {
@@ -24,8 +22,7 @@ class SQLPriorityHelper {
     return id;
   }
 
-  static Future<List<Map<String, dynamic>>> getPriorities(
-      int? userId) async {
+  static Future<List<Map<String, dynamic>>> getPriorities(int? userId) async {
     final db = await DatabaseHelper.db();
 
     return db.query(
@@ -45,8 +42,8 @@ class SQLPriorityHelper {
   static Future<int> updatePriority(Priority priority) async {
     final db = await DatabaseHelper.db();
 
-    final result = await db
-        .update('priority', priority.toMap(), where: "id = ?", whereArgs: [priority.id]);
+    final result = await db.update('priority', priority.toMap(),
+        where: "id = ?", whereArgs: [priority.id]);
 
     return result;
   }
