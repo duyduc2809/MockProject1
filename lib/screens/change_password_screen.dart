@@ -5,6 +5,7 @@ import '../constants/dimension_constant.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../helpers/sql_account_helper.dart';
 import '../classes/account.dart';
+import '../widgets/async_text_form_field.dart';
 
 class ChangePassWord extends StatefulWidget {
   const ChangePassWord({super.key});
@@ -63,7 +64,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
               TextFormField(
                 obscureText: _isCurrentPassObscure,
                 controller: _currentPassController,
-                validator: (value) => Validator.passwordValidator(value),
+                validator: (value) =>
+                    Validator.confirmCurrentPasswordValidator(value),
                 decoration: CustomInputDecoration(
                   labelText: 'Current password',
                   suffixIcon: IconButton(
