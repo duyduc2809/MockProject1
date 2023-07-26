@@ -1,6 +1,9 @@
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/sql_account_helper.dart';
+import '../helpers/sql_note_helper.dart';
+
 // ignore: must_be_immutable
 class DashboardForm extends StatefulWidget {
 
@@ -11,6 +14,17 @@ class DashboardForm extends StatefulWidget {
 }
 
 class _DashboardFormState extends State<DashboardForm> {
+  final int? _idAccount = SQLAccountHelper.currentAccount['id'];
+  List<Map<String, dynamic>> noteList = [];
+
+  Future<void> _loadNotes() async {
+    final data = await SQLNoteHelper.getNotes(accountId: _idAccount);
+
+    setState(() {
+      noteList = data;
+    });
+  }
+
   Map<String, double> dataMap = {
     "Pending": 7,
     "Done": 2.4,
