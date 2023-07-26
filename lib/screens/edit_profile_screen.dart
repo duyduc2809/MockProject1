@@ -5,6 +5,7 @@ import '../helpers/sql_account_helper.dart';
 import '../widgets/async_text_form_field.dart';
 import '../widgets/custom_input_decoration.dart';
 import 'home_screen.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
@@ -30,7 +31,22 @@ class _EditProfileState extends State<EditProfile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-                const Text('Edit Your Profile'),
+                const Row(
+                  children: [
+                    Icon(
+                      Icons.manage_accounts,
+                      size: 40,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Edit your profile',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _firstNameController,
@@ -62,14 +78,6 @@ class _EditProfileState extends State<EditProfile> {
                       'Invalid email or email already exists',
                   hintText: 'name@example.com',
                 ),
-                // TextFormField(
-                //   controller: _emailController,
-                //   validator: (value) => Validator.emailValidator(value),
-                //   decoration: const InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     labelText: 'Email',
-                //   ),
-                // ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -80,6 +88,8 @@ class _EditProfileState extends State<EditProfile> {
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             SQLAccountHelper.updateAccount(Account(
+                                firstName: _firstNameController.text,
+                                lastName: _lastNameController.text,
                                 email: _emailController.text,
                                 id: SQLAccountHelper.currentAccount['id'],
                                 password: SQLAccountHelper
@@ -88,17 +98,9 @@ class _EditProfileState extends State<EditProfile> {
                                 _emailController);
                             print(SQLAccountHelper.currentAccount['id']);
                           }
-                          AsyncTextFormField(
-                            labelText: 'Email',
-                            validator: (value) => Validator.isValidEmail(value),
-                            validationDebounce:
-                                const Duration(milliseconds: 200),
-                            controller: _emailController,
-                            valueIsEmptyMessage: 'Please enter an email',
-                            valueIsInvalidMessage:
-                                'Invalid email or email already exists',
-                            hintText: 'name@example.com',
-                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Edit successful! ')));
                         },
                         child: const Text('Change')),
                     ElevatedButton(
