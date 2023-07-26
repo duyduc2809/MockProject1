@@ -85,8 +85,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
               TextFormField(
                 obscureText: _isNewPassObscure,
                 controller: _newPassController,
-                validator: (value) => Validator.confirmPasswordValidator(
-                    value, _newPassController),
+                validator: (value) => Validator.newPasswordValidator(value),
                 decoration: CustomInputDecoration(
                   labelText: 'New password',
                   suffixIcon: IconButton(
@@ -107,7 +106,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
               TextFormField(
                 obscureText: _isConfirmPassObscure,
                 controller: _confirmnewPassController,
-                validator: (value) => Validator.passwordValidator(value),
+                validator: (value) => Validator.confirmPasswordValidator(
+                    value, _newPassController),
                 decoration: CustomInputDecoration(
                   labelText: 'Confirm new password',
                   suffixIcon: IconButton(
