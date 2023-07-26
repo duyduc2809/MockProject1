@@ -8,9 +8,10 @@ class Note {
   late final String? priorityName;
   late final String? statusName;
   late final String? planDate;
+  late final String? createdAt;
 
 
-  Note({this.name, this.categoryName, this.priorityName,this.statusName, this.planDate,  this.accountId, this.id});
+  Note({this.name, this.categoryName, this.priorityName,this.statusName, this.planDate,  this.accountId, this.id, this.createdAt});
 
   
 
@@ -22,7 +23,8 @@ class Note {
       "categoryName": categoryName,
       "priorityName": priorityName,
       "statusName": statusName,
-      "planDate": planDate != null ? planDate! : null,
+      "planDate": planDate,
+      "createdAt": createdAt
     };
   }
 }

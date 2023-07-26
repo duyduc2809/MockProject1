@@ -13,7 +13,7 @@ class SQLHelper {
   }
 
   static Future<List<Map<String, dynamic>>> getItems(
-      String function, int userId) async {
+      String function, int? userId) async {
     final db = await SQLAccountHelper.db();
 
     return db.query(
