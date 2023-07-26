@@ -54,9 +54,8 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               controller: _emailController,
               validator: (value) => Validator.emailValidator(value),
-              decoration:  CustomInputDecoration(
-                labelText: 'Email' ,
-                   hintText: 'name@example.com'),
+              decoration: CustomInputDecoration(
+                  labelText: 'Email', hintText: 'name@example.com'),
             ),
             const SizedBox(
               height: spaceBetweenField,
@@ -72,26 +71,24 @@ class _LoginFormState extends State<LoginForm> {
               },
               decoration: CustomInputDecoration(
                 labelText: 'Password',
-                  suffixIcon: IconButton(
-                    icon: _isObscureText
-                        ? const Icon(Icons.visibility_off)
-                        : const Icon(Icons.visibility),
-                    onPressed: () {
-                      setState(() {
-                        _isObscureText = !_isObscureText;
-                      });
-                    },
-                  ),
-
+                suffixIcon: IconButton(
+                  icon: _isObscureText
+                      ? const Icon(Icons.visibility_off)
+                      : const Icon(Icons.visibility),
+                  onPressed: () {
+                    setState(() {
+                      _isObscureText = !_isObscureText;
+                    });
+                  },
                 ),
+              ),
             ),
-
             SizedBox(
               height: spaceBetweenField,
             ),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(55),
+                    minimumSize: const Size.fromHeight(55),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(kMediumPadding))),
                 onPressed: () async {
@@ -130,8 +127,10 @@ class _LoginFormState extends State<LoginForm> {
         SQLAccountHelper.setCurrentAccount(_emailController);
         PrefHelper.saveCredentials(
             _rememberMe, _emailController, _passwordController);
-        Navigator.push(this.context,
-            MaterialPageRoute(builder: (context) => const HomePage()));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage()),
+            (route) => false);
       }
     }
     !isLoginSuccess
