@@ -141,7 +141,7 @@ class _HomePageState extends State<_HomePage> {
               itemCount: _journals.length,
               itemBuilder: (context, index) => Card(
                 color: Colors.orange[200],
-                margin: const EdgeInsets.all(15),
+                margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
                 child: ListTile(
                   title: Text('Name: ' + _journals[index]['name']),
                   subtitle:

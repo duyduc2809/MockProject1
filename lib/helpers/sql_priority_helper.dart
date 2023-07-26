@@ -18,7 +18,7 @@ class SQLPriorityHelper {
 
   static Future<int> createPriority(Priority priority) async {
     final db = await DatabaseHelper.db();
-    final id = await db.insert('category', priority.toMap(),
+    final id = await db.insert('priority', priority.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
 
     return id;
