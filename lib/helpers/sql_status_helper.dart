@@ -19,7 +19,7 @@ class SQLStatusHelper {
 
   static Future<int> createStatus(Status status) async {
     final db = await DatabaseHelper.db();
-    final id = await db.insert('category', status.toMap(),
+    final id = await db.insert('status', status.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
 
     return id;
