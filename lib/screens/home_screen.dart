@@ -3,6 +3,9 @@ import 'package:mock_prj1/screens/category_screen.dart';
 import 'package:mock_prj1/screens/change_password_screen.dart';
 import 'package:mock_prj1/screens/dashboard_screen.dart';
 import 'package:mock_prj1/screens/edit_profile_screen.dart';
+import 'package:mock_prj1/screens/note_screen.dart';
+import 'package:mock_prj1/screens/priority_screen.dart';
+import 'package:mock_prj1/screens/status_screen.dart';
 import '../helpers/pref_helper.dart';
 import '../helpers/sql_account_helper.dart';
 import 'authentication_screen.dart';
@@ -36,13 +39,13 @@ class _HomePageState extends State<HomePage> {
       case 0:
         return DashboardForm();
       case 1:
-        return const FunctionItemScreen();
+        return const CategoryItemScreen();
       case 2:
-        return const FunctionItemScreen();
+        return const PriorityItemScreen();
       case 3:
-        return const FunctionItemScreen();
+        return const StatusItemScreen();
       case 4:
-        return const FunctionItemScreen();
+        return AddNoteScreen();
       case 5:
         return const ChangePassWord();
       case 6:
@@ -109,9 +112,9 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-                            ListTile(
+              ListTile(
                 title: const Text(_priorityText),
-                leading: const Icon(Icons.category),
+                leading: const Icon(Icons.low_priority_sharp),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
@@ -119,9 +122,9 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-                            ListTile(
+              ListTile(
                 title: const Text(_statusText),
-                leading: const Icon(Icons.category),
+                leading: const Icon(Icons.signal_wifi_statusbar_null),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {
@@ -129,9 +132,9 @@ class _HomePageState extends State<HomePage> {
                   });
                 },
               ),
-                            ListTile(
+              ListTile(
                 title: const Text(_noteText),
-                leading: const Icon(Icons.category),
+                leading: const Icon(Icons.note_add),
                 onTap: () {
                   Navigator.pop(context);
                   setState(() {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import 'sql_function_item_helper.dart';
 import '../classes/account.dart';
-import '../classes/Item.dart';
-
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
   static const _accountsTable = 'accounts';
