@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import '../classes/Note.dart';
 import 'sql_account_helper.dart';
