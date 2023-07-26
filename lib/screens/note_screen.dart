@@ -369,7 +369,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   @override
-
 Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(title: Text("Add Note")),
@@ -380,7 +379,6 @@ Widget build(BuildContext context) {
         return Card(
           color: Colors.orange[200],
           child: ListTile(
-
             title: Text(note['name'] ?? ''),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
