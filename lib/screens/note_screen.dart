@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../classes/Note.dart';
 
 import '../helpers/sql_account_helper.dart';
+import '../helpers/sql_function_item_helper.dart';
 import '../helpers/sql_note_helper.dart';
 
 class AddNoteScreen extends StatefulWidget {
@@ -16,6 +17,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   List<Map<String, dynamic>> noteList = [];
+  List<Map<String, dynamic>> categoryList = [];
+  List<Map<String, dynamic>> priorityList = [];
+  List<Map<String, dynamic>> statusList = [];
   final int? _idAccount = SQLAccountHelper.currentAccount['id'];
   String? _categoryName;
   String? _priorityName;
@@ -23,9 +27,30 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   String? _tempPlanDate;
 
   // List of categories, priorities, and statuses to be used for dropdowns
-  List<String> categories = ['Category 1', 'Category 2', 'Category 3'];
-  List<String> priorities = ['Priority 1', 'Priority 2', 'Priority 3'];
-  List<String> statuses = ['Status 1', 'Status 2', 'Status 3'];
+  Future<void> _loadcategories() async {
+    final categories = await SQLHelper.getItems('Category', _idAccount);
+
+    setState(() {
+      categoryList = categories;
+    });
+  }
+
+  Future<void> _loadpriorities() async {
+    final priorities = await SQLHelper.getItems('Priority', _idAccount);
+
+    setState(() {
+      priorityList = priorities;
+    });
+  }
+
+  Future<void> _loadstatuses() async {
+    final statuses = await SQLHelper.getItems('Status', _idAccount);
+
+    setState(() {
+      statusList = statuses;
+    });
+  }
+
   //Load data notes.
   Future<void> _loadNotes() async {
     final data = await SQLNoteHelper.getNotes(accountId: _idAccount);
@@ -36,21 +61,21 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   // DropdownButton onChanged callbacks to update the selected values
-  void _onCategoryChanged(String? value) {
+  void _onCategoryChanged(Map<String, dynamic>? value) {
     setState(() {
-      _categoryName = value;
+      _categoryName = value?['name'];
     });
   }
 
-  void _onPriorityChanged(String? value) {
+  void _onPriorityChanged(Map<String, dynamic>? value) {
     setState(() {
-      _priorityName = value;
+      _priorityName = value?['name'];
     });
   }
 
-  void _onStatusChanged(String? value) {
+  void _onStatusChanged(Map<String, dynamic>? value) {
     setState(() {
-      _statusName = value;
+      _statusName = value?['name'];
     });
   }
 
@@ -62,6 +87,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       priorityName: _priorityName,
       statusName: _statusName,
       planDate: _tempPlanDate != null ? _tempPlanDate! : "",
+      createdAt: DateTime.now().toIso8601String(),
     );
 
     setState(() {
@@ -76,6 +102,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     if (id != null) {
       _updateNote(id);
     }
+    _onClearNote();
   }
 
   // 1
@@ -96,6 +123,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     super.initState();
     if (_idAccount != null) {
       _loadNotes();
+      _loadcategories();
+      _loadpriorities();
+      _loadstatuses();
     }
   }
 
@@ -107,21 +137,21 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     return null; // Hợp lệ
   }
 
-  String? _validateCategory(String? value) {
+  String? _validateCategory(int? value) {
     if (value == null) {
       return 'Category is required.';
     }
     return null; // Hợp lệ
   }
 
-  String? _validatePriority(String? value) {
+  String? _validatePriority(int? value) {
     if (value == null) {
       return 'Priority is required.';
     }
     return null; // Hợp lệ
   }
 
-  String? _validateStatus(String? value) {
+  String? _validateStatus(int? value) {
     if (value == null) {
       return 'Status is required.';
     }
@@ -192,7 +222,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Add Note"),
+          title:  Text(id == null ? "Add Note" : "Update Note"),
           content: SingleChildScrollView(
             child: Form(
               key: _formKey, // Sử dụng GlobalKey cho Form
@@ -204,41 +234,71 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     validator: _validateName, // Sử dụng hàm validate riêng
                   ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<String>(
-                    value: _categoryName,
-                    items: categories.map((category) {
-                      return DropdownMenuItem(
-                        value: category,
-                        child: Text(category),
+                  DropdownButtonFormField<int>(
+                    value: _categoryName != null
+                        ? categoryList.firstWhere(
+                            (category) => category['name'] == _categoryName,
+                            orElse: () => categoryList.first,
+                          )['id']
+                        : null,
+                    items: categoryList.map((category) {
+                      return DropdownMenuItem<int>(
+                        value: category['id'],
+                        child: Text(category['name']),
                       );
                     }).toList(),
-                    onChanged: _onCategoryChanged,
+                    onChanged: (value) {
+                      _onCategoryChanged(categoryList
+                          .firstWhere((category) => category['id'] == value));
+                    },
                     decoration: const InputDecoration(labelText: "Category"),
-                    validator: _validateCategory, // Sử dụng hàm validate riêng
+                    validator: (value) {
+                      return _validateCategory(value);
+                    },
                   ),
-                  DropdownButtonFormField<String>(
-                    value: _priorityName,
-                    items: priorities.map((priority) {
-                      return DropdownMenuItem(
-                        value: priority,
-                        child: Text(priority),
+                  DropdownButtonFormField<int>(
+                    value: _priorityName != null
+                        ? priorityList.firstWhere(
+                            (priority) => priority['name'] == _priorityName,
+                            orElse: () => priorityList.first,
+                          )['id']
+                        : null,
+                    items: priorityList.map((priority) {
+                      return DropdownMenuItem<int>(
+                        value: priority['id'],
+                        child: Text(priority['name']),
                       );
                     }).toList(),
-                    onChanged: _onPriorityChanged,
+                    onChanged: (value) {
+                      _onPriorityChanged(priorityList
+                          .firstWhere((priority) => priority['id'] == value));
+                    },
                     decoration: const InputDecoration(labelText: "Priority"),
-                    validator: _validatePriority, // Sử dụng hàm validate riêng
+                    validator: (value) {
+                      return _validatePriority(value);
+                    },
                   ),
-                  DropdownButtonFormField<String>(
-                    value: _statusName,
-                    items: statuses.map((status) {
-                      return DropdownMenuItem(
-                        value: status,
-                        child: Text(status),
+                  DropdownButtonFormField<int>(
+                    value: _statusName != null
+                        ? statusList.firstWhere(
+                            (status) => status['name'] == _statusName,
+                            orElse: () => statusList.first,
+                          )['id']
+                        : null,
+                    items: statusList.map((status) {
+                      return DropdownMenuItem<int>(
+                        value: status['id'],
+                        child: Text(status['name']),
                       );
                     }).toList(),
-                    onChanged: _onStatusChanged,
+                    onChanged: (value) {
+                      _onStatusChanged(statusList
+                          .firstWhere((status) => status['id'] == value));
+                    },
                     decoration: const InputDecoration(labelText: "Status"),
-                    validator: _validateStatus, // Sử dụng hàm validate riêng
+                    validator: (value) {
+                      return _validateStatus(value);
+                    },
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -254,7 +314,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         setState(() {
                           _tempPlanDate = pickedDate.toIso8601String();
                         });
-                      } 
+                      }
                     },
                     child: Text(_tempPlanDate != null &&
                             _tempPlanDate!.isNotEmpty &&
@@ -287,6 +347,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         const SnackBar(
                             content: Text("Note updated successfully.")),
                       );
+                      
                     } else {
                       _onSaveNote();
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -308,6 +369,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   @override
+<<<<<<< HEAD
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
@@ -315,6 +377,18 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
         itemBuilder: (context, index) {
           final note = noteList[index];
           return ListTile(
+=======
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: Text("Add Note")),
+    body: ListView.builder(
+      itemCount: noteList.length,
+      itemBuilder: (context, index) {
+        final note = noteList[index];
+        return Card(
+          color: Colors.orange[200],
+          child: ListTile(
+>>>>>>> main
             title: Text(note['name'] ?? ''),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,9 +396,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 Text('Category: ${note['categoryName'] ?? ''}'),
                 Text('Priority: ${note['priorityName'] ?? ''}'),
                 Text('Status: ${note['statusName'] ?? ''}'),
+                Text('Plan Date: ${note['planDate'] != null ? note['planDate']!.toString().substring(0, 10) : ''}'),
                 Text(
-                  'Plan Date: ${note['planDate'] != null ? note['planDate']!.toString().substring(0, 10) : ''}',
-                ),
+                  'CreatedAt: ${note['createdAt'] ?? ''}'),
               ],
             ),
             trailing: Row(
@@ -344,17 +418,18 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 ),
               ],
             ),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _showNoteDialog(null);
-        },
-        child: Icon(Icons.add),
-      ),
-    );
-  }
+          ),
+        );
+      },
+    ),
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        _showNoteDialog(null);
+      },
+      child: Icon(Icons.add),
+    ),
+  );
+}
 
   Future<void> _addNote(Note note) async {
     await SQLNoteHelper.createNote(note);
@@ -370,6 +445,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       priorityName: _priorityName,
       statusName: _statusName,
       planDate: _tempPlanDate != null ? _tempPlanDate! : "",
+      createdAt: DateTime.now().toIso8601String(),
     ));
     _loadNotes();
   }
