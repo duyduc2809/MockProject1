@@ -26,9 +26,9 @@ class _DashboardFormState extends State<DashboardForm> {
   }
 
   Map<String, double> dataMap = {
-    "Pending": 7,
-    "Done": 2.4,
-    "Processing": 2.4,
+    "Pending": 1,
+    "Done": 1,
+    "Processing": 1,
   };
 
   @override
