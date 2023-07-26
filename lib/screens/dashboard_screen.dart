@@ -14,10 +14,6 @@ class DashboardForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Dashboard Form"),
-        centerTitle: true,
-      ),
       body: Container(
         child: Center(
           child: PieChart(
