@@ -18,7 +18,7 @@ class SQLNoteHelper {
   static Future<Map<String, double>> getStat(int userId) async {
     final db = await DatabaseHelper.db();
     var result = await db.rawQuery(
-        'SELECT $_columnStatusName, $_columnAccountId, COUNT(*) as count FROM $_notesTable GROUP BY $_columnStatusName, $_columnAccountId');
+        'SELECT $_columnStatusName, $_columnAccountId, COUNT(*) as count FROM $_notesTable WHERE $_columnAccountId = $userId GROUP BY $_columnStatusName, $_columnAccountId');
     print(result);
     Map<String, double> resultMap = {};
     for (var item in result) {
@@ -44,6 +44,7 @@ class SQLNoteHelper {
       ON DELETE CASCADE ON UPDATE NO ACTION
   )''');
   }
+
 //   static Future<Database> db() async {
 //   return openDatabase(
 //     'account.db',
@@ -74,7 +75,8 @@ class SQLNoteHelper {
 
     final id = await db.insert(
       _notesTable,
-      noteMap,conflictAlgorithm: ConflictAlgorithm.replace,
+      noteMap,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
   }
