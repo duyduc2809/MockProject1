@@ -24,8 +24,7 @@ class SQLPriorityHelper {
     return id;
   }
 
-  static Future<List<Map<String, dynamic>>> getPriorities(
-      int? userId) async {
+  static Future<List<Map<String, dynamic>>> getPriorities(int? userId) async {
     final db = await DatabaseHelper.db();
 
     return db.query(
@@ -45,8 +44,8 @@ class SQLPriorityHelper {
   static Future<int> updatePriority(Priority priority) async {
     final db = await DatabaseHelper.db();
 
-    final result = await db
-        .update('priority', priority.toMap(), where: "id = ?", whereArgs: [priority.id]);
+    final result = await db.update('priority', priority.toMap(),
+        where: "id = ?", whereArgs: [priority.id]);
 
     return result;
   }

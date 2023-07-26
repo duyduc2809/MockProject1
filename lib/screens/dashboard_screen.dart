@@ -19,17 +19,13 @@ class DashboardForm extends StatelessWidget {
           child: PieChart(
             dataMap: dataMap,
             chartRadius: MediaQuery.of(context).size.width / 1.7,
-            legendOptions: const LegendOptions(
-              legendPosition: LegendPosition.bottom
-            ),
-            chartValuesOptions: const ChartValuesOptions(
-              showChartValuesInPercentage: true
-            ),
+            legendOptions:
+                const LegendOptions(legendPosition: LegendPosition.bottom),
+            chartValuesOptions:
+                const ChartValuesOptions(showChartValuesInPercentage: true),
           ),
         ),
       ),
     );
   }
 }
-
-

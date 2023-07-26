@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
-import '../classes/Note.dart';
+import '../classes/note.dart';
+import 'database_helper.dart';
 import 'sql_account_helper.dart';
 
 class SQLNoteHelper{
@@ -29,29 +30,29 @@ class SQLNoteHelper{
       ON DELETE CASCADE ON UPDATE NO ACTION
   )''');
 }
-  static Future<Database> db() async {
-  return openDatabase(
-    'account.db',
-    version: 2, // Thay đổi version từ 1 thành 2
-    onCreate: (Database database, int version) async {
-      // Enable foreign key support
-      await database.execute("PRAGMA foreign_keys = ON;");
-      await createNotesTable(database);
-    },
-    onUpgrade: (Database database, int oldVersion, int newVersion) {
-      // Thực hiện các thay đổi trong cơ sở dữ liệu khi có sự thay đổi version
-      if (oldVersion < 2) {
-        // Thêm cột id với tự động tăng
-        database.execute('''ALTER TABLE $_notesTable
-          ADD COLUMN $_columnNoteId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
-        ''');
-      }
-    },
-  );
-}
+//   static Future<Database> db() async {
+//   return openDatabase(
+//     'account.db',
+//     version: 2, // Thay đổi version từ 1 thành 2
+//     onCreate: (Database database, int version) async {
+//       // Enable foreign key support
+//       await database.execute("PRAGMA foreign_keys = ON;");
+//       await createNotesTable(database);
+//     },
+//     onUpgrade: (Database database, int oldVersion, int newVersion) {
+//       // Thực hiện các thay đổi trong cơ sở dữ liệu khi có sự thay đổi version
+//       if (oldVersion < 2) {
+//         // Thêm cột id với tự động tăng
+//         database.execute('''ALTER TABLE $_notesTable
+//           ADD COLUMN $_columnNoteId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+//         ''');
+//       }
+//     },
+//   );
+// }
 
 static Future<int> createNote(Note note) async {
-    final db = await SQLNoteHelper.db();
+    final db = await DatabaseHelper.db();
     
     // Thêm thông tin accountId vào map của ghi chú
     final noteMap = note.toMap();
@@ -66,7 +67,7 @@ static Future<int> createNote(Note note) async {
   }
 
 static Future<List<Map<String, dynamic>>> getNotes({int? accountId}) async {
-  final db = await SQLNoteHelper.db();
+  final db = await DatabaseHelper.db();
   final List<Map<String, dynamic>> maps = await db.query(
     _notesTable,
     where: '$_columnAccountId = ?', 
@@ -77,7 +78,7 @@ static Future<List<Map<String, dynamic>>> getNotes({int? accountId}) async {
 }
 
   static Future<Map<String, dynamic>?> getNoteById(int id) async {
-  final db = await SQLNoteHelper.db();
+  final db = await DatabaseHelper.db();
   final List<Map<String, dynamic>> maps = await db.query(
     _notesTable,
     where: '$_columnNoteId = ?',
@@ -91,7 +92,7 @@ static Future<List<Map<String, dynamic>>> getNotes({int? accountId}) async {
 }
 
   static Future<int> updateNote(Note note) async {
-    final db = await SQLNoteHelper.db();
+    final db = await DatabaseHelper.db();
     final result = await db.update(
       _notesTable,
       note.toMap(),
@@ -102,7 +103,7 @@ static Future<List<Map<String, dynamic>>> getNotes({int? accountId}) async {
   }
 
   static Future<void> deleteNote(int id) async {
-    final db = await SQLNoteHelper.db();
+    final db = await DatabaseHelper.db();
     await db.delete(
       _notesTable,
       where: '$_columnNoteId = ?',

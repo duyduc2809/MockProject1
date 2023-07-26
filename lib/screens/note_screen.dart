@@ -5,7 +5,7 @@ import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
 
-import '../classes/Note.dart';
+import '../classes/note.dart';
 
 import '../helpers/sql_account_helper.dart';
 import '../helpers/sql_note_helper.dart';
@@ -224,7 +224,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:  Text(id == null ? "Add Note" : "Update Note"),
+          title: Text(id == null ? "Add Note" : "Update Note"),
           content: SingleChildScrollView(
             child: Form(
               key: _formKey, // Sử dụng GlobalKey cho Form
@@ -349,7 +349,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         const SnackBar(
                             content: Text("Note updated successfully.")),
                       );
-                      
                     } else {
                       _onSaveNote();
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -371,57 +370,55 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(title: Text("Add Note")),
-    body: ListView.builder(
-      itemCount: noteList.length,
-      itemBuilder: (context, index) {
-        final note = noteList[index];
-        return Card(
-          color: Colors.orange[200],
-          child: ListTile(
-            title: Text(note['name'] ?? ''),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Category: ${note['categoryName'] ?? ''}'),
-                Text('Priority: ${note['priorityName'] ?? ''}'),
-                Text('Status: ${note['statusName'] ?? ''}'),
-                Text('Plan Date: ${note['planDate'] != null ? note['planDate']!.toString().substring(0, 10) : ''}'),
-                Text(
-                  'CreatedAt: ${note['createdAt'] ?? ''}'),
-              ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        itemCount: noteList.length,
+        itemBuilder: (context, index) {
+          final note = noteList[index];
+          return Card(
+            color: Colors.orange[200],
+            child: ListTile(
+              title: Text(note['name'] ?? ''),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Category: ${note['categoryName'] ?? ''}'),
+                  Text('Priority: ${note['priorityName'] ?? ''}'),
+                  Text('Status: ${note['statusName'] ?? ''}'),
+                  Text(
+                      'Plan Date: ${note['planDate'] != null ? note['planDate']!.toString().substring(0, 10) : ''}'),
+                ],
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    onPressed: () {
+                      _showNoteDialog(note['id']);
+                    },
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      _showDeleteConfirmationDialog(note['id']);
+                    },
+                  ),
+                ],
+              ),
             ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    _showNoteDialog(note['id']);
-                  },
-                ),
-                IconButton(
-                  icon: Icon(Icons.delete),
-                  onPressed: () {
-                    _showDeleteConfirmationDialog(note['id']);
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    ),
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        _showNoteDialog(null);
-      },
-      child: Icon(Icons.add),
-    ),
-  );
-}
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _showNoteDialog(null);
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
 
   Future<void> _addNote(Note note) async {
     await SQLNoteHelper.createNote(note);
