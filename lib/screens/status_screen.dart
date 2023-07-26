@@ -108,12 +108,12 @@ class _HomePageState extends State<_HomePage> {
 
   Future<void> _updateItem(int id) async {
     await SQLStatusHelper.updateStatus(
-        Status(
-            id: id,
-            userId: _currentUserId,
-            name: _titleController.text,
-            createdAt: DateTime.now().toString()),
-       );
+      Status(
+          id: id,
+          userId: _currentUserId,
+          name: _titleController.text,
+          createdAt: DateTime.now().toString()),
+    );
     _refreshJournals();
   }
 

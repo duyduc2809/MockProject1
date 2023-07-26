@@ -3,8 +3,8 @@ import 'package:mock_prj1/validator.dart';
 import '../classes/account.dart';
 import '../constants/dimension_constant.dart';
 import '../helpers/sql_account_helper.dart';
-import '../widgets/async_text_form_field.dart';
 import '../widgets/custom_input_decoration.dart';
+import '../widgets/custom_text_form_field.dart';
 import 'home_screen.dart';
 
 class EditProfile extends StatefulWidget {
@@ -17,9 +17,9 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   final _formkey = GlobalKey<FormState>();
 
-   final _firstNameController = TextEditingController();
-   final _lastNameController = TextEditingController();
-   final _emailController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
 
   @override
   void initState() {
@@ -29,7 +29,6 @@ class _EditProfileState extends State<EditProfile> {
     _firstNameController.text = SQLAccountHelper.currentAccount['firstName'];
     _lastNameController.text = SQLAccountHelper.currentAccount['lastName'];
     _emailController.text = SQLAccountHelper.currentAccount['email'];
-
   }
 
   @override
@@ -98,7 +97,8 @@ class _EditProfileState extends State<EditProfile> {
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(kMediumPadding))),
+                            borderRadius:
+                                BorderRadius.circular(kMediumPadding))),
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         SQLAccountHelper.updateAccount(Account(
@@ -106,23 +106,24 @@ class _EditProfileState extends State<EditProfile> {
                             lastName: _lastNameController.text,
                             email: _emailController.text,
                             id: SQLAccountHelper.currentAccount['id'],
-                            password: SQLAccountHelper
-                                .currentAccount['password']));
-                        SQLAccountHelper.setCurrentAccount(
-                            _emailController);
+                            password:
+                                SQLAccountHelper.currentAccount['password']));
+                        SQLAccountHelper.setCurrentAccount(_emailController);
                         print(SQLAccountHelper.currentAccount['id']);
                       }
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Edit successful! ')));
+                          const SnackBar(content: Text('Edit successful! ')));
                     },
                     child: const Text('Change')),
-                const SizedBox(height: spaceBetweenField / 2,),
+                const SizedBox(
+                  height: spaceBetweenField / 2,
+                ),
                 OutlinedButton(
                     style: OutlinedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(kMediumPadding))),
+                            borderRadius:
+                                BorderRadius.circular(kMediumPadding))),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const HomePage()));
