@@ -1,12 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
-
 import '../classes/note.dart';
-
 import '../helpers/sql_account_helper.dart';
 import '../helpers/sql_note_helper.dart';
 

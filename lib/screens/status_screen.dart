@@ -22,7 +22,6 @@ class _HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<_HomePage> {
-  final String _function = "Status";
   final int _currentUserId = SQLAccountHelper.currentAccount['id'];
 
   List<Map<String, dynamic>> _journals = [];
