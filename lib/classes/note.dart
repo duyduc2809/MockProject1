@@ -1,5 +1,3 @@
-import 'Account.dart';
-
 class Note {
   final int? id;
   final int? accountId;
