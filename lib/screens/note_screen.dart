@@ -371,7 +371,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
 Widget build(BuildContext context) {
   return Scaffold(
-    appBar: AppBar(title: Text("Add Note")),
     body: ListView.builder(
       itemCount: noteList.length,
       itemBuilder: (context, index) {
