@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-
 import 'helpers/sql_account_helper.dart';
 
 class Validator {
@@ -32,6 +31,7 @@ class Validator {
     } else if (value != SQLAccountHelper.currentAccount['password']) {
       return 'Password does not match';
     }
+    return null;
   }
 
   // static Future<String?> emailValidator(String? value) async {

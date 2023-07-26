@@ -1,12 +1,10 @@
+import 'package:mock_prj1/helpers/sql_account_helper.dart';
+import 'package:mock_prj1/helpers/sql_note_helper.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:flutter/material.dart';
 
-import '../helpers/sql_account_helper.dart';
-import '../helpers/sql_note_helper.dart';
-
 // ignore: must_be_immutable
 class DashboardForm extends StatefulWidget {
-
   DashboardForm({super.key});
 
   @override
@@ -14,30 +12,35 @@ class DashboardForm extends StatefulWidget {
 }
 
 class _DashboardFormState extends State<DashboardForm> {
-  final int? _idAccount = SQLAccountHelper.currentAccount['id'];
-  List<Map<String, dynamic>> noteList = [];
+  late Map<String, double> _dataMap;
+  bool _isLoading = true;
 
-  Future<void> _loadNotes() async {
-    final data = await SQLNoteHelper.getNotes(accountId: _idAccount);
+  Future<void> _refreshCharts() async {
+    final data =
+        await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
 
     setState(() {
-      noteList = data;
+      _dataMap = data;
+      _isLoading = false;
     });
   }
 
-  Map<String, double> dataMap = {
-    "Pending": 1,
-    "Done": 1,
-    "Processing": 1,
-  };
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    _refreshCharts();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) : Container(
         child: Center(
           child: PieChart(
-            dataMap: dataMap,
+            dataMap: _dataMap,
             chartRadius: MediaQuery.of(context).size.width / 1.7,
             legendOptions:
                 const LegendOptions(legendPosition: LegendPosition.bottom),
