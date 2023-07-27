@@ -56,6 +56,14 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Container _buildDrawerContainer(
+      {required Color color, required Widget child}) {
+    return Container(
+        decoration:
+            BoxDecoration(borderRadius: defaultBorderRadius, color: color),
+        child: child);
+  }
+
   String _buildAppBarTitle() {
     switch (_currentBody) {
       case 0:
@@ -88,125 +96,164 @@ class _HomePageState extends State<HomePage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                color: Colors.black,
-                height: 200,
-                width: 400,
-                child: Padding(
-                  padding: const EdgeInsets.all(kMinPadding * 4),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.orange,
-                        child: Icon(
-                          Icons.person,
-                          color: Colors.black,
+              SizedBox(
+                height: 35,
+              ),
+              SizedBox(
+                width: 265,
+                child: _buildDrawerContainer(
+                  color: Colors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.all(kItemPadding * 1.5),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CircleAvatar(
+                          radius: 25,
+                          backgroundColor: Colors.orange,
+                          child: Icon(
+                            Icons.person,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      _getFullName(),
-                      Text(
-                        '${SQLAccountHelper.currentAccount['email']}',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        _getFullName(),
+                        Text(
+                          '${SQLAccountHelper.currentAccount['email']}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
               // Image.asset('assets/images/logo.jpg'),
 
-              ListTile(
-                title: const Text(
-                  _dashboardText,
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: kMinPadding * 4,
+                    right: kMinPadding * 4,
+                    bottom: kMinPadding * 2,
+                    top: kMinPadding * 4),
+                child: _buildDrawerContainer(
+                  color: Colors.grey.withOpacity(0.1),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: const Text(
+                          _dashboardText,
+                        ),
+                        leading: const Icon(Icons.dashboard),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 0;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(_categoryText),
+                        leading: const Icon(Icons.category),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 1;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(_priorityText),
+                        leading: const Icon(Icons.low_priority_sharp),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 2;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(_statusText),
+                        leading: const Icon(Icons.signal_wifi_statusbar_null),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 3;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(_noteText),
+                        leading: const Icon(Icons.note_add),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 4;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-                leading: const Icon(Icons.dashboard),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 0;
-                  });
-                },
               ),
-              ListTile(
-                title: const Text(_categoryText),
-                leading: const Icon(Icons.category),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 1;
-                  });
-                },
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 50),
+                child: Divider(
+                  color: Colors.black,
+                ),
               ),
-              ListTile(
-                title: const Text(_priorityText),
-                leading: const Icon(Icons.low_priority_sharp),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 2;
-                  });
-                },
-              ),
-              ListTile(
-                title: const Text(_statusText),
-                leading: const Icon(Icons.signal_wifi_statusbar_null),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 3;
-                  });
-                },
-              ),
-              ListTile(
-                title: const Text(_noteText),
-                leading: const Icon(Icons.note_add),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 4;
-                  });
-                },
-              ),
-              const Text(
-                "Account",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              ListTile(
-                title: const Text(_changePasswordText),
-                leading: const Icon(Icons.change_circle),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 5;
-                  });
-                },
-              ),
-              ListTile(
-                title: const Text(_editProfileText),
-                leading: const Icon(Icons.edit),
-                onTap: () {
-                  Navigator.pop(context);
-                  setState(() {
-                    _currentBody = 6;
-                  });
-                },
-              ),
-              ListTile(
-                title: const Text("Log out"),
-                leading: const Icon(Icons.logout),
-                onTap: () {
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) {
-                    PrefHelper.clearSavedCredentials();
-                    return const DualFormScreen();
-                  }), (route) => false);
-                },
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: kMinPadding * 4,
+                    right: kMinPadding * 4,
+                    bottom: kMinPadding * 4,
+                    top: kMinPadding * 2),
+                child: _buildDrawerContainer(
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: const Text(_changePasswordText),
+                        leading: const Icon(Icons.change_circle),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 5;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(_editProfileText),
+                        leading: const Icon(Icons.edit),
+                        onTap: () {
+                          Navigator.pop(context);
+                          setState(() {
+                            _currentBody = 6;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: const Text(
+                          "Log out",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        leading: const Icon(
+                          Icons.logout,
+                          color: Colors.red,
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (context) {
+                            PrefHelper.clearSavedCredentials();
+                            return const DualFormScreen();
+                          }), (route) => false);
+                        },
+                      ),
+                    ],
+                  ),
+                  color: Colors.grey.withOpacity(0.1),
+                ),
               )
             ],
           ),
@@ -217,18 +264,14 @@ class _HomePageState extends State<HomePage> {
 
   Widget _getFullName() {
     if (SQLAccountHelper.currentAccount['firstName'] != '' &&
-            SQLAccountHelper.currentAccount['lastName'] != '' ||
-        SQLAccountHelper.currentAccount['firstName'] != null &&
-            SQLAccountHelper.currentAccount['lastName'] != null) {
+        SQLAccountHelper.currentAccount['lastName'] != '') {
       return Text(
         '${SQLAccountHelper.currentAccount['firstName']} ${SQLAccountHelper.currentAccount['lastName']}',
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
       );
     } else {
-      return SizedBox(
-        height: 1,
-      );
+      return const SizedBox();
     }
   }
 }

@@ -92,7 +92,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
               child: Container(child: _getSuffixIcon())),
           hintText: widget.hintText,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(kMediumPadding),
+            borderRadius: defaultBorderRadius,
           ),
           prefixIcon: widget.prefixIcon),
     );

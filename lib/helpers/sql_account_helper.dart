@@ -85,12 +85,12 @@ class SQLAccountHelper {
     }
   }
 
-  static Future<int> saveUser(String email, String password) async {
-    var db = await DatabaseHelper.db();
-    var result =
-        await db.insert(_accountsTable, {email: email, password: password});
-    return result;
-  }
+static Future<int> saveUser(String email, String password) async {
+  var db = await DatabaseHelper.db();
+  var value = {'email': email, 'password': password};
+  var result = await db.insert(_accountsTable, value);
+  return result;
+}
 
   static Future<Map<String, dynamic>?> getAccountToSave() async {
     var db = await DatabaseHelper.db();
