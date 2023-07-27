@@ -81,10 +81,14 @@ class _HomePageState extends State<_HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      if (id == null) {
+                      if (id == null &&
+                          await SQLPriorityHelper.checkValidPriority(
+                              _titleController.text)) {
                         await _addItem();
                       }
-                      if (id != null) {
+                      if (id != null &&
+                          await SQLPriorityHelper.checkValidPriority(
+                              _titleController.text)) {
                         await _updateItem(id);
                       }
 
@@ -101,11 +105,24 @@ class _HomePageState extends State<_HomePage> {
             ));
   }
 
+  void snackBarDisplay(String? action) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$action Success'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
   Future<void> _addItem() async {
     await SQLPriorityHelper.createPriority(Priority(
       userId: _currentUserId,
       name: _titleController.text,
     ));
+
+    snackBarDisplay("Add");
+
     _refreshJournals();
   }
 
@@ -117,16 +134,16 @@ class _HomePageState extends State<_HomePage> {
           name: _titleController.text,
           createdAt: DateTime.now().toString()),
     );
+
+    snackBarDisplay('Update');
+
     _refreshJournals();
   }
 
   Future<void> _deleteItem(int id) async {
     await SQLPriorityHelper.deletePriority(id);
 
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Delete Success'),
-    ));
+    snackBarDisplay("Delete");
 
     _refreshJournals();
   }
@@ -141,7 +158,8 @@ class _HomePageState extends State<_HomePage> {
           : ListView.builder(
               itemCount: _journals.length,
               itemBuilder: (context, index) => Card(
-                shape: RoundedRectangleBorder(borderRadius: defaultBorderRadius),
+                shape:
+                    RoundedRectangleBorder(borderRadius: defaultBorderRadius),
                 color: Colors.orange[200],
                 margin: cardMargin,
                 child: ListTile(
@@ -149,10 +167,8 @@ class _HomePageState extends State<_HomePage> {
                     _journals[index]['name'],
                     style: cardTitleTextStyle,
                   ),
-                  subtitle: Text('Created Date: ' +
-                      _journals[index]['createdAt']
-                          .toString()
-                          .substring(0, 10)),
+                  subtitle: Text(
+                      'Created Date: ${_journals[index]['createdAt'].toString().substring(0, 10)}'),
                   trailing: SizedBox(
                     width: 100,
                     child: Row(

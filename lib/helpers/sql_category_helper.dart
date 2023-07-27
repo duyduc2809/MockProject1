@@ -39,6 +39,13 @@ class SQLCategoryHelper {
     return db.query('category', where: "id = ?", whereArgs: [id], limit: 1);
   }
 
+  static Future<bool> checkValidCategory(String input) async {
+    final db = await DatabaseHelper.db();
+    List<Map<String, dynamic>> result =
+        await db.query('category', where: "name = ?", whereArgs: [input]);
+    return !result.isNotEmpty;
+  }
+
   static Future<int> updateCategory(Category category) async {
     final db = await DatabaseHelper.db();
 
