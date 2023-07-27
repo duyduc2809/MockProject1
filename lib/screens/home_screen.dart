@@ -27,7 +27,9 @@ class _HomePageState extends State<HomePage> {
   static const _priorityText = 'Priority';
   static const _statusText = 'Status';
   static const _noteText = 'Note';
-
+  var  _currentFirstName = SQLAccountHelper.currentAccount['firstName'];
+  var _currentLastName = SQLAccountHelper.currentAccount['lastName'];
+  var _currentEmail = SQLAccountHelper.currentAccount['email'];
   @override
   void initState() {
     // TODO: implement initState
@@ -35,10 +37,19 @@ class _HomePageState extends State<HomePage> {
     _currentBody = 0;
   }
 
+  void refreshAccountInfo() {
+    setState(() {
+      print(SQLAccountHelper.currentAccount['firstName']);
+      _currentFirstName = SQLAccountHelper.currentAccount['firstName'];
+      _currentLastName = SQLAccountHelper.currentAccount['lastName'];
+      _currentEmail = SQLAccountHelper.currentAccount['email'];
+    });
+  }
+
   Widget _buildBody() {
     switch (_currentBody) {
       case 0:
-        return DashboardForm();
+        return Scaffold();
       case 1:
         return const CategoryItemScreen();
       case 2:
@@ -50,7 +61,7 @@ class _HomePageState extends State<HomePage> {
       case 5:
         return const ChangePassWord();
       case 6:
-        return const EditProfile();
+        return EditProfile(refreshDrawer: refreshAccountInfo);
       default:
         return const HomePage();
     }
@@ -122,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         _getFullName(),
                         Text(
-                          '${SQLAccountHelper.currentAccount['email']}',
+                          '$_currentEmail',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
@@ -263,10 +274,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getFullName() {
-    if (SQLAccountHelper.currentAccount['firstName'] != '' &&
-        SQLAccountHelper.currentAccount['lastName'] != '') {
+    if (_currentFirstName != '' &&
+        _currentLastName != '') {
       return Text(
-        '${SQLAccountHelper.currentAccount['firstName']} ${SQLAccountHelper.currentAccount['lastName']}',
+        '${_currentFirstName} ${_currentLastName}',
         style: const TextStyle(
             color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
       );

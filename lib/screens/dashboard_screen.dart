@@ -12,27 +12,25 @@ class DashboardForm extends StatefulWidget {
 }
 
 class _DashboardFormState extends State<DashboardForm> {
+
   Map<String, double> _dataMap = {};
   bool _isLoading = true;
 
   Future<void> _refreshCharts() async {
-    final data =
-        await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
+    final data = await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
 
-    if (mounted) {
-      setState(() {
-        if (data.isNotEmpty) {
-          _dataMap = data;
-        } else {
-          // Handle the case when data is empty or null
-          // For example, you can set a default value for _dataMap or show an error message.
-          _dataMap = {
-            'No Data': 0.0,
-          };
-        }
-        _isLoading = false;
-      });
-    }
+    setState(() {
+      if (data.isNotEmpty) {
+        _dataMap = data;
+      } else {
+        // Handle the case when data is empty or null
+        // For example, you can set a default value for _dataMap or show an error message.
+        _dataMap = {
+          'No Data': 0.0,
+        };
+      }
+      _isLoading = false;
+    });
   }
 
   @override
@@ -45,28 +43,26 @@ class _DashboardFormState extends State<DashboardForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
-              child: Center(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: PieChart(
-                        dataMap: _dataMap,
-                        chartRadius: MediaQuery.of(context).size.width / 1.7,
-                        legendOptions: const LegendOptions(
-                            legendPosition: LegendPosition.bottom),
-                        chartValuesOptions: const ChartValuesOptions(
-                            showChartValuesInPercentage: true),
-                      ),
-                    ),
-                  ],
+      body: _isLoading ? const Center(
+        child: CircularProgressIndicator(),
+      ) : Container(
+        child: Center(
+          child: Column(
+            children: [
+              Expanded(
+                child: PieChart(
+                  dataMap: _dataMap,
+                  chartRadius: MediaQuery.of(context).size.width / 1.7,
+                  legendOptions:
+                      const LegendOptions(legendPosition: LegendPosition.bottom),
+                  chartValuesOptions:
+                      const ChartValuesOptions(showChartValuesInPercentage: true),
                 ),
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
