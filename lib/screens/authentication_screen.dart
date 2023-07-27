@@ -3,7 +3,7 @@ import 'package:mock_prj1/constants/dimension_constant.dart';
 
 import '../widgets/login_form.dart';
 import '../widgets/register_form.dart';
-
+//màn hình chính của 2 form đăng nhập và đăng ký tài khoản
 enum FormType { login, register }
 
 class DualFormScreen extends StatefulWidget {
