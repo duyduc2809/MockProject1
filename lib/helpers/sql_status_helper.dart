@@ -38,6 +38,13 @@ class SQLStatusHelper {
     return db.query('status', where: "id = ?", whereArgs: [id], limit: 1);
   }
 
+  static Future<bool> checkValidStatus(String input) async {
+    final db = await DatabaseHelper.db();
+    List<Map<String, dynamic>> result =
+        await db.query('status', where: "name = ?", whereArgs: [input]);
+    return !result.isNotEmpty;
+  }
+
   static Future<int> updateStatus(Status status) async {
     final db = await DatabaseHelper.db();
 
