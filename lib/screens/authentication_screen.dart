@@ -34,16 +34,16 @@ class _DualFormScreenState extends State<DualFormScreen> {
             children: _currentForm == FormType.login
                 ? [
                     const Text('Don\'t have an account?'),
-                    Text(
+                    const Text(
                       ' Sign up',
-                      style: TextStyle(color: ThemeData.light().primaryColor),
+                      style: TextStyle(color: Colors.orange),
                     )
                   ]
                 : [
                     const Text('Already have an account?'),
-                    Text(
+                    const Text(
                       ' Sign in',
-                      style: TextStyle(color: ThemeData.light().primaryColor),
+                      style: TextStyle(color: Colors.orange),
                     )
                   ],
           ),

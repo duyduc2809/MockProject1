@@ -132,7 +132,7 @@ class _EditProfileState extends State<EditProfile> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const HomePage()));
                     },
-                    child: const Text('Cancel')),
+                    child: const Text('Home')),
               ],
             )),
       ),

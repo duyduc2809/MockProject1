@@ -10,5 +10,6 @@ const double spaceBetweenField = 20.0;
 const double dualFormScreenPadding = 30.0;
 const double kDefaultIconSize = 18;
 
-
+const EdgeInsetsGeometry cardMargin = EdgeInsets.only(left: 15, right: 15, top: 15);
 const BorderRadius kDefaultBorderRadius = BorderRadius.all(Radius.circular(8));
+BorderRadius defaultBorderRadius = BorderRadius.circular(kMediumPadding);

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mock_prj1/classes/priority.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 
+import '../constants/dimension_constant.dart';
+import '../constants/text_style_constant.dart';
 import '../helpers/sql_account_helper.dart';
 
 class PriorityItemScreen extends StatelessWidget {
@@ -139,12 +141,18 @@ class _HomePageState extends State<_HomePage> {
           : ListView.builder(
               itemCount: _journals.length,
               itemBuilder: (context, index) => Card(
+                shape: RoundedRectangleBorder(borderRadius: defaultBorderRadius),
                 color: Colors.orange[200],
-                margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                margin: cardMargin,
                 child: ListTile(
-                  title: Text('Name: ' + _journals[index]['name']),
-                  subtitle:
-                      Text('Created Date: ' + _journals[index]['createdAt']),
+                  title: Text(
+                    _journals[index]['name'],
+                    style: cardTitleTextStyle,
+                  ),
+                  subtitle: Text('Created Date: ' +
+                      _journals[index]['createdAt']
+                          .toString()
+                          .substring(0, 10)),
                   trailing: SizedBox(
                     width: 100,
                     child: Row(
