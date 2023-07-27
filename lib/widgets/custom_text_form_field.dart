@@ -1,3 +1,5 @@
+//tff dùng để sử dụng tại màn hình sign up,
+//mục đích là validate email hợp lệ truy xuất dữ liệu từ database xem email đã tồn tại hay chưa
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -118,6 +120,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
     isValidating = false;
     return isValid;
   }
+
 
   Widget _getSuffixIcon() {
     if (isValidating) {

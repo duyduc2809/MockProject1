@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/dimension_constant.dart';
-
+//custom lại decoration cho các textField
 class CustomInputDecoration extends InputDecoration {
   CustomInputDecoration({
     String? labelText,
