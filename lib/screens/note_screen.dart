@@ -3,6 +3,8 @@ import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
 import '../classes/note.dart';
+import '../constants/dimension_constant.dart';
+import '../constants/text_style_constant.dart';
 import '../helpers/sql_account_helper.dart';
 import '../helpers/sql_note_helper.dart';
 
@@ -373,9 +375,11 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
         itemBuilder: (context, index) {
           final note = noteList[index];
           return Card(
+            shape: RoundedRectangleBorder(borderRadius: defaultBorderRadius),
+            margin: cardMargin,
             color: Colors.orange[200],
             child: ListTile(
-              title: Text(note['name'] ?? ''),
+              title: Text(note['name'] ?? '', style: cardTitleTextStyle,),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
