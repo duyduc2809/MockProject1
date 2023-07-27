@@ -30,6 +30,7 @@ class _LoginFormState extends State<LoginForm> {
     _isObscureText = true;
   }
 
+  //load giá trị của biến _rememberMe, nếu là true thì load tài khoản đã được remember qua hàm PrefHelper.loadSavedCredentials()
   _loadRememberMeStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -117,6 +118,7 @@ class _LoginFormState extends State<LoginForm> {
         ));
   }
 
+  //xử lý login tài khoản, nếu thành công th chuyển sang HomePage đồng thời remove các màn hình trước
   _login() async {
     bool isLoginSuccess = false;
     final account = await SQLAccountHelper.getAccounts();

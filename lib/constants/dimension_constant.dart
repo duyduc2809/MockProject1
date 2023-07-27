@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-
+//tạo giá trị mặc định cho các padding, borderradius
 const double kMediumPadding = 20.0; // bigger default padding
 const double kBottomBarIconSize = 20.0; // size of icon on the bottom bar
 const double kDefaultPadding = 16.0; // standard padding using default items

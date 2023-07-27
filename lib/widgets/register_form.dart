@@ -20,7 +20,6 @@ class _RegisterFormState extends State<RegisterForm> {
   final _formkey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _confirmPassController = TextEditingController();
-
   final _emailController = TextEditingController();
 
   late bool _isPassObscure;
@@ -118,6 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ));
   }
 
+  //thêm account vào database
   Future<void> _addAccount() async {
     await SQLAccountHelper.createAccount(Account(
       email: _emailController.text,

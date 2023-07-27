@@ -28,21 +28,11 @@ class SQLAccountHelper {
     $_columnCreateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)''');
   }
 
-  static Future<void> createItemTable(Database database) async {
-    await database.execute('''CREATE TABLE items(
-    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-    userId INTEGER,
-    function TEXT,
-    name TEXT,
-    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    )''');
-  }
 
   static Future<Database> db() async {
     return openDatabase(_accountPath, version: 1,
         onCreate: (Database database, int version) async {
       await createAccountTable(database);
-      await createItemTable(database);
     });
   }
 
