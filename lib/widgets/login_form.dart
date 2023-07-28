@@ -126,8 +126,12 @@ class _LoginFormState extends State<LoginForm> {
           acc['password'] == _passwordController.text) {
         isLoginSuccess = true;
         await SQLAccountHelper.setCurrentAccount(_emailController);
-        PrefHelper.saveCredentials(
-            _rememberMe, _emailController, _passwordController);
+        if (_rememberMe == true) {
+          await PrefHelper.clearSavedCredentials();
+          await PrefHelper.saveCredentials(
+              _rememberMe, _emailController, _passwordController);
+        }
+        if (!mounted) return;
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
