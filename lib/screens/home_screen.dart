@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
   Widget _buildBody() {
     switch (_currentBody) {
       case 0:
-        return Scaffold();
+        return DashboardForm();
       case 1:
         return const CategoryItemScreen();
       case 2:
