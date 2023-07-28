@@ -322,7 +322,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                         ? "Pick Plan Date: ${_tempPlanDate.toString().substring(0, 10)}"
                         : "Pick Plan Date"),
                   ),
-                  Text('${_tempPlanDate.toString().substring(0, 10)}')
                 ],
               ),
             ),
