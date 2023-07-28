@@ -9,7 +9,8 @@ import '../widgets/custom_text_form_field.dart';
 import 'home_screen.dart';
 
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+  final VoidCallback refreshDrawer;
+  EditProfile({super.key, required this.refreshDrawer});
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -103,7 +104,7 @@ class _EditProfileState extends State<EditProfile> {
                         shape: RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.circular(kMediumPadding))),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formkey.currentState!.validate()) {
                         SQLAccountHelper.updateAccount(Account(
                             firstName: _firstNameController.text,
@@ -112,8 +113,9 @@ class _EditProfileState extends State<EditProfile> {
                             id: SQLAccountHelper.currentAccount['id'],
                             password:
                                 SQLAccountHelper.currentAccount['password']));
-                        SQLAccountHelper.setCurrentAccount(_emailController);
+                        await SQLAccountHelper.setCurrentAccount(_emailController);
                         print(SQLAccountHelper.currentAccount['id']);
+                        widget.refreshDrawer();
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Edit successful! ')));
                       }
