@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-
+//tạo giá trị mặc định cho các padding, borderradius
 const double kMediumPadding = 20.0; // bigger default padding
 const double kBottomBarIconSize = 20.0; // size of icon on the bottom bar
 const double kDefaultPadding = 16.0; // standard padding using default items
@@ -10,5 +10,6 @@ const double spaceBetweenField = 20.0;
 const double dualFormScreenPadding = 30.0;
 const double kDefaultIconSize = 18;
 
-
+const EdgeInsetsGeometry cardMargin = EdgeInsets.only(left: 15, right: 15, top: 15);
 const BorderRadius kDefaultBorderRadius = BorderRadius.all(Radius.circular(8));
+BorderRadius defaultBorderRadius = BorderRadius.circular(kMediumPadding);

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/classes/status.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
+import '../constants/dimension_constant.dart';
+import '../constants/text_style_constant.dart';
 import '../helpers/sql_account_helper.dart';
 
 class StatusItemScreen extends StatelessWidget {
@@ -77,10 +79,14 @@ class _HomePageState extends State<_HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      if (id == null) {
+                      if (id == null &&
+                          await SQLStatusHelper.checkValidStatus(
+                              _titleController.text)) {
                         await _addItem();
                       }
-                      if (id != null) {
+                      if (id != null &&
+                          await SQLStatusHelper.checkValidStatus(
+                              _titleController.text)) {
                         await _updateItem(id);
                       }
 
@@ -97,11 +103,24 @@ class _HomePageState extends State<_HomePage> {
             ));
   }
 
+  void snackBarDisplay(String? action) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('$action Success'),
+        duration: const Duration(seconds: 1),
+      ),
+    );
+  }
+
   Future<void> _addItem() async {
     await SQLStatusHelper.createStatus(Status(
       userId: _currentUserId,
       name: _titleController.text,
     ));
+
+    snackBarDisplay("Add");
+
     _refreshJournals();
   }
 
@@ -113,16 +132,16 @@ class _HomePageState extends State<_HomePage> {
           name: _titleController.text,
           createdAt: DateTime.now().toString()),
     );
+
+    snackBarDisplay("Update");
+
     _refreshJournals();
   }
 
   Future<void> _deleteItem(int id) async {
     await SQLStatusHelper.deleteStatus(id);
 
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Delete Success'),
-    ));
+    snackBarDisplay("Delete");
 
     _refreshJournals();
   }
@@ -137,12 +156,15 @@ class _HomePageState extends State<_HomePage> {
           : ListView.builder(
               itemCount: _journals.length,
               itemBuilder: (context, index) => Card(
+                shape:
+                    RoundedRectangleBorder(borderRadius: defaultBorderRadius),
                 color: Colors.orange[200],
-                margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
+                margin: cardMargin,
                 child: ListTile(
-                  title: Text('Name: ' + _journals[index]['name']),
-                  subtitle:
-                      Text('Created Date: ' + _journals[index]['createdAt']),
+                  title:
+                      Text(_journals[index]['name'], style: cardTitleTextStyle),
+                  subtitle: Text(
+                      'Created Date: ${_journals[index]['createdAt'].toString().substring(0, 10)}'),
                   trailing: SizedBox(
                     width: 100,
                     child: Row(

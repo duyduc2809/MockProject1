@@ -1,12 +1,10 @@
-//tff dùng để sử dụng tại màn hình sign up,
-//mục đích là validate email hợp lệ truy xuất dữ liệu từ database xem email đã tồn tại hay chưa
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 
 import '../constants/dimension_constant.dart';
 
-class AsyncTextFormField extends StatefulWidget {
+class ChangeEmailTextFormField extends StatefulWidget {
   final Future<bool> Function(String) validator;
   final Duration validationDebounce;
   final TextEditingController controller;
@@ -16,25 +14,26 @@ class AsyncTextFormField extends StatefulWidget {
   final String valueIsInvalidMessage;
   final Icon? prefixIcon;
   final String labelText;
-final bool? isCheckEmpty;
-  const AsyncTextFormField(
+  final bool? isCheckEmpty;
+  final String? currentEmail;
+  const ChangeEmailTextFormField(
       {Key? key,
-      required this.validator,
-      required this.validationDebounce,
-      required this.controller,
-      this.isValidatingMessage = "",
-      this.valueIsEmptyMessage = '',
-      this.valueIsInvalidMessage = '',
-      this.hintText = '',
-      this.prefixIcon,
-      this.labelText = '', this.isCheckEmpty = true})
+        required this.validator,
+        required this.validationDebounce,
+        required this.controller,
+        this.isValidatingMessage = "",
+        this.valueIsEmptyMessage = '',
+        this.valueIsInvalidMessage = '',
+        this.hintText = '',
+        this.prefixIcon,
+        this.labelText = '', this.isCheckEmpty = true, this.currentEmail})
       : super(key: key);
 
   @override
-  _AsyncTextFormFieldState createState() => _AsyncTextFormFieldState();
+  _ChangeEmailTextFormFieldState createState() => _ChangeEmailTextFormFieldState();
 }
 
-class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
+class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
   Timer? _debounce;
   var isValidating = false;
   var isValid = false;
@@ -46,15 +45,19 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
+        if (value == widget.currentEmail) {
+          isValid = true;
+          return null;
+        }
         if (isValidating) {
           // return widget.isValidatingMessage;
           return null;
         }
         if (widget.isCheckEmpty == true) {
 
-        if (value?.isEmpty ?? false) {
-          return widget.valueIsEmptyMessage;
-        }
+          if (value?.isEmpty ?? false) {
+            return widget.valueIsEmptyMessage;
+          }
         }
         if (!isWaiting && !isValid) {
           return widget.valueIsInvalidMessage;
@@ -76,9 +79,9 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
         _debounce = Timer(widget.validationDebounce, () async {
           isWaiting = false;
           isValid = await validate(text);
-          print(isValid);
-          setState(() {});
+
           isValidating = false;
+          setState(() {});
         });
       },
       // textAlign: TextAlign.start,
@@ -86,7 +89,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
       maxLines: 1,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        labelText: widget.labelText,
+          labelText: widget.labelText,
           suffix: Container(
               alignment: Alignment.center,
               width: 15,
@@ -94,7 +97,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
               child: Container(child: _getSuffixIcon())),
           hintText: widget.hintText,
           border: OutlineInputBorder(
-            borderRadius: defaultBorderRadius,
+            borderRadius: BorderRadius.circular(kMediumPadding),
           ),
           prefixIcon: widget.prefixIcon),
     );
@@ -116,11 +119,14 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
     setState(() {
       isValidating = true;
     });
+    if (text == widget.currentEmail) {
+      return true;
+    }
     final isValid = await widget.validator(text);
+
     isValidating = false;
     return isValid;
   }
-
 
   Widget _getSuffixIcon() {
     if (isValidating) {

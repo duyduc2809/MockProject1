@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static const _dbPath = 'mock.db';
-
+  //khởi tạo database và các table
   static Future<Database> db() async {
     return openDatabase(_dbPath, version: 1,
         onCreate: (Database database, int version) async {

@@ -30,13 +30,13 @@ class _LoginFormState extends State<LoginForm> {
     _isObscureText = true;
   }
 
+  //load giá trị của biến _rememberMe, nếu là true thì load tài khoản đã được remember qua hàm PrefHelper.loadSavedCredentials()
   _loadRememberMeStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _rememberMe = prefs.getBool('rememberMe') ?? false;
       if (_rememberMe) {
-        PrefHelper.loadSavedCredentials(
-            _passwordController, _passwordController);
+        PrefHelper.loadSavedCredentials(_emailController, _passwordController);
         _login();
       }
     });
@@ -117,6 +117,7 @@ class _LoginFormState extends State<LoginForm> {
         ));
   }
 
+  //xử lý login tài khoản, nếu thành công th chuyển sang HomePage đồng thời remove các màn hình trước
   _login() async {
     bool isLoginSuccess = false;
     final account = await SQLAccountHelper.getAccounts();
@@ -125,8 +126,12 @@ class _LoginFormState extends State<LoginForm> {
           acc['password'] == _passwordController.text) {
         isLoginSuccess = true;
         await SQLAccountHelper.setCurrentAccount(_emailController);
-        PrefHelper.saveCredentials(
-            _rememberMe, _emailController, _passwordController);
+        if (_rememberMe == true) {
+          await PrefHelper.clearSavedCredentials();
+          await PrefHelper.saveCredentials(
+              _rememberMe, _emailController, _passwordController);
+        }
+        if (!mounted) return;
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),

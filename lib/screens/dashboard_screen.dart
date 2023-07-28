@@ -12,15 +12,23 @@ class DashboardForm extends StatefulWidget {
 }
 
 class _DashboardFormState extends State<DashboardForm> {
-  late Map<String, double> _dataMap;
+
+  Map<String, double> _dataMap = {};
   bool _isLoading = true;
 
   Future<void> _refreshCharts() async {
-    final data =
-        await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
+    final data = await SQLNoteHelper.getStat(SQLAccountHelper.currentAccount['id']);
 
     setState(() {
-      _dataMap = data;
+      if (data.isNotEmpty) {
+        _dataMap = data;
+      } else {
+        // Handle the case when data is empty or null
+        // For example, you can set a default value for _dataMap or show an error message.
+        _dataMap = {
+          'No Data': 0.0,
+        };
+      }
       _isLoading = false;
     });
   }
@@ -39,13 +47,19 @@ class _DashboardFormState extends State<DashboardForm> {
         child: CircularProgressIndicator(),
       ) : Container(
         child: Center(
-          child: PieChart(
-            dataMap: _dataMap,
-            chartRadius: MediaQuery.of(context).size.width / 1.7,
-            legendOptions:
-                const LegendOptions(legendPosition: LegendPosition.bottom),
-            chartValuesOptions:
-                const ChartValuesOptions(showChartValuesInPercentage: true),
+          child: Column(
+            children: [
+              Expanded(
+                child: PieChart(
+                  dataMap: _dataMap,
+                  chartRadius: MediaQuery.of(context).size.width / 1.7,
+                  legendOptions:
+                      const LegendOptions(legendPosition: LegendPosition.bottom),
+                  chartValuesOptions:
+                      const ChartValuesOptions(showChartValuesInPercentage: true),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -3,6 +3,8 @@ import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
 import '../classes/note.dart';
+import '../constants/dimension_constant.dart';
+import '../constants/text_style_constant.dart';
 import '../helpers/sql_account_helper.dart';
 import '../helpers/sql_note_helper.dart';
 
@@ -299,26 +301,11 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () async {
-                      // Show DateTimePicker and update _tempPlanDate
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _tempPlanDate = pickedDate.toIso8601String();
-                        });
-                      }
+                   _SelectedDateWidget(
+                    initialDate: _tempPlanDate,
+                    onDateChanged: (selectedDate) {
+                      _tempPlanDate = selectedDate;
                     },
-                    child: Text(_tempPlanDate != null &&
-                            _tempPlanDate!.isNotEmpty &&
-                            _tempPlanDate! != ""
-                        ? "Pick Plan Date: ${_tempPlanDate.toString().substring(0, 10)}"
-                        : "Pick Plan Date"),
                   ),
                 ],
               ),
@@ -373,9 +360,14 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
         itemBuilder: (context, index) {
           final note = noteList[index];
           return Card(
+            shape: RoundedRectangleBorder(borderRadius: defaultBorderRadius),
+            margin: cardMargin,
             color: Colors.orange[200],
             child: ListTile(
-              title: Text(note['name'] ?? ''),
+              title: Text(
+                note['name'] ?? '',
+                style: cardTitleTextStyle,
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -439,4 +431,76 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     await SQLNoteHelper.deleteNote(id);
     _loadNotes();
   }
+}
+
+
+class _SelectedDateWidget extends StatefulWidget {
+  final String? initialDate;
+  final Function(String) onDateChanged;
+
+  const _SelectedDateWidget({
+    required this.initialDate,
+    required this.onDateChanged,
+  });
+
+  @override
+  _SelectedDateWidgetState createState() => _SelectedDateWidgetState();
+}
+
+class _SelectedDateWidgetState extends State<_SelectedDateWidget> {
+  late String _selectedDate;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDate = widget.initialDate ?? '';
+  }
+
+  void _updateSelectedDate(String selectedDate) {
+    setState(() {
+      _selectedDate = selectedDate;
+      widget.onDateChanged(_selectedDate);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ElevatedButton(
+          onPressed: () async {
+            // Show DateTimePicker and update _selectedDate
+            String? pickedDate = await _showDatePicker(context, _selectedDate);
+            if (pickedDate != null) {
+              _updateSelectedDate(pickedDate);
+            }
+          },
+          child: const Text("Pick Plan Date"),
+        ),
+        Text(
+          _selectedDate.isNotEmpty
+              ? "Selected Date: ${_selectedDate.substring(0, 10)}"
+              : "................................",
+        ),
+      ],
+    );
+  }
+}
+
+Future<String?> _showDatePicker(BuildContext context, String initialDate) async {
+  DateTime currentDate = initialDate.isNotEmpty
+      ? DateTime.parse(initialDate)
+      : DateTime.now();
+
+  DateTime? pickedDate = await showDatePicker(
+    context: context,
+    initialDate: currentDate,
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2100),
+  );
+
+  if (pickedDate != null) {
+    return pickedDate.toIso8601String();
+  }
+  return null;
 }

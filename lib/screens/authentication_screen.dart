@@ -3,7 +3,7 @@ import 'package:mock_prj1/constants/dimension_constant.dart';
 
 import '../widgets/login_form.dart';
 import '../widgets/register_form.dart';
-
+//màn hình chính của 2 form đăng nhập và đăng ký tài khoản
 enum FormType { login, register }
 
 class DualFormScreen extends StatefulWidget {
@@ -34,16 +34,16 @@ class _DualFormScreenState extends State<DualFormScreen> {
             children: _currentForm == FormType.login
                 ? [
                     const Text('Don\'t have an account?'),
-                    Text(
+                    const Text(
                       ' Sign up',
-                      style: TextStyle(color: ThemeData.light().primaryColor),
+                      style: TextStyle(color: Colors.orange),
                     )
                   ]
                 : [
                     const Text('Already have an account?'),
-                    Text(
+                    const Text(
                       ' Sign in',
-                      style: TextStyle(color: ThemeData.light().primaryColor),
+                      style: TextStyle(color: Colors.orange),
                     )
                   ],
           ),

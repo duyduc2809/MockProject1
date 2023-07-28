@@ -85,8 +85,7 @@ class _ChangePassWordState extends State<ChangePassWord> {
               TextFormField(
                 obscureText: _isNewPassObscure,
                 controller: _newPassController,
-                validator: (value) => Validator.confirmPasswordValidator(
-                    value, _newPassController),
+                validator: (value) => Validator.newPasswordValidator(value),
                 decoration: CustomInputDecoration(
                   labelText: 'New password',
                   suffixIcon: IconButton(
@@ -107,7 +106,8 @@ class _ChangePassWordState extends State<ChangePassWord> {
               TextFormField(
                 obscureText: _isConfirmPassObscure,
                 controller: _confirmnewPassController,
-                validator: (value) => Validator.passwordValidator(value),
+                validator: (value) => Validator.confirmPasswordValidator(
+                    value, _newPassController),
                 decoration: CustomInputDecoration(
                   labelText: 'Confirm new password',
                   suffixIcon: IconButton(
@@ -133,14 +133,17 @@ class _ChangePassWordState extends State<ChangePassWord> {
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
                       SQLAccountHelper.updateAccount(Account(
+                          firstName:
+                              SQLAccountHelper.currentAccount['firstName'],
+                          lastName: SQLAccountHelper.currentAccount['lastName'],
                           id: SQLAccountHelper.currentAccount['id'],
                           email: SQLAccountHelper.currentAccount['email'],
                           password: _newPassController.text));
 
                       print(SQLAccountHelper.currentAccount['id']);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Change successful! ')));
                     }
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Change successful! ')));
                   },
                   child: const Text('Change')),
               const SizedBox(

@@ -18,7 +18,7 @@ class SQLNoteHelper {
   static Future<Map<String, double>> getStat(int userId) async {
     final db = await DatabaseHelper.db();
     var result = await db.rawQuery(
-        'SELECT $_columnStatusName, $_columnAccountId, COUNT(*) as count FROM $_notesTable GROUP BY $_columnStatusName, $_columnAccountId');
+        'SELECT $_columnStatusName, $_columnAccountId, COUNT(*) as count FROM $_notesTable WHERE $_columnAccountId = $userId GROUP BY $_columnStatusName, $_columnAccountId');
     print(result);
     Map<String, double> resultMap = {};
     for (var item in result) {
@@ -45,6 +45,27 @@ class SQLNoteHelper {
   )''');
   }
 
+//   static Future<Database> db() async {
+//   return openDatabase(
+//     'account.db',
+//     version: 2, // Thay đổi version từ 1 thành 2
+//     onCreate: (Database database, int version) async {
+//       // Enable foreign key support
+//       await database.execute("PRAGMA foreign_keys = ON;");
+//       await createNotesTable(database);
+//     },
+//     onUpgrade: (Database database, int oldVersion, int newVersion) {
+//       // Thực hiện các thay đổi trong cơ sở dữ liệu khi có sự thay đổi version
+//       if (oldVersion < 2) {
+//         // Thêm cột id với tự động tăng
+//         database.execute('''ALTER TABLE $_notesTable
+//           ADD COLUMN $_columnNoteId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL
+//         ''');
+//       }
+//     },
+//   );
+// }
+
   static Future<int> createNote(Note note) async {
     final db = await DatabaseHelper.db();
 
@@ -54,7 +75,8 @@ class SQLNoteHelper {
 
     final id = await db.insert(
       _notesTable,
-      noteMap,conflictAlgorithm: ConflictAlgorithm.replace,
+      noteMap,
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return id;
   }

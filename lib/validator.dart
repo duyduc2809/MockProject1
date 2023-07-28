@@ -15,6 +15,17 @@ class Validator {
     return null;
   }
 
+  static String? newPasswordValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    } else if (value == SQLAccountHelper.currentAccount['password']) {
+      return 'Is current password';
+    } else if (value.length < 8) {
+      return 'Password must be as least 8 characters';
+    }
+    return null;
+  }
+
   static String? confirmPasswordValidator(
       String? value, TextEditingController passwordController) {
     if (value == null || value.isEmpty) {

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
 import '../classes/priority.dart';
 
-
 class SQLPriorityHelper {
   static Future<void> createPriorityTable(Database database) async {
     await database.execute('''CREATE TABLE priority(
@@ -37,6 +36,13 @@ class SQLPriorityHelper {
     final db = await DatabaseHelper.db();
 
     return db.query('priority', where: "id = ?", whereArgs: [id], limit: 1);
+  }
+
+  static Future<bool> checkValidPriority(String input) async {
+    final db = await DatabaseHelper.db();
+    List<Map<String, dynamic>> result =
+        await db.query('priority', where: "name = ?", whereArgs: [input]);
+    return !result.isNotEmpty;
   }
 
   static Future<int> updatePriority(Priority priority) async {
