@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/helpers/database_helper.dart';
 import 'package:sqflite/sqflite.dart';
-import '../classes/account.dart';
+import '../models/account.dart';
 
 class SQLAccountHelper {
   static late Map<String, dynamic> currentAccount;
@@ -27,7 +27,6 @@ class SQLAccountHelper {
     $_columnLastName TEXT,
     $_columnCreateAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)''');
   }
-
 
   static Future<Database> db() async {
     return openDatabase(_accountPath, version: 1,
@@ -75,12 +74,12 @@ class SQLAccountHelper {
     }
   }
 
-static Future<int> saveUser(String email, String password) async {
-  var db = await DatabaseHelper.db();
-  var value = {'email': email, 'password': password};
-  var result = await db.insert(_accountsTable, value);
-  return result;
-}
+  static Future<int> saveUser(String email, String password) async {
+    var db = await DatabaseHelper.db();
+    var value = {'email': email, 'password': password};
+    var result = await db.insert(_accountsTable, value);
+    return result;
+  }
 
   static Future<Map<String, dynamic>?> getAccountToSave() async {
     var db = await DatabaseHelper.db();

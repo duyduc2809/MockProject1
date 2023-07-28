@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
-import '../classes/note.dart';
+import '../models/note.dart';
 import '../constants/dimension_constant.dart';
 import '../constants/text_style_constant.dart';
 import '../helpers/sql_account_helper.dart';
@@ -301,7 +301,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                   _SelectedDateWidget(
+                  _SelectedDateWidget(
                     initialDate: _tempPlanDate,
                     onDateChanged: (selectedDate) {
                       _tempPlanDate = selectedDate;
@@ -433,7 +433,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   }
 }
 
-
 class _SelectedDateWidget extends StatefulWidget {
   final String? initialDate;
   final Function(String) onDateChanged;
@@ -487,10 +486,10 @@ class _SelectedDateWidgetState extends State<_SelectedDateWidget> {
   }
 }
 
-Future<String?> _showDatePicker(BuildContext context, String initialDate) async {
-  DateTime currentDate = initialDate.isNotEmpty
-      ? DateTime.parse(initialDate)
-      : DateTime.now();
+Future<String?> _showDatePicker(
+    BuildContext context, String initialDate) async {
+  DateTime currentDate =
+      initialDate.isNotEmpty ? DateTime.parse(initialDate) : DateTime.now();
 
   DateTime? pickedDate = await showDatePicker(
     context: context,
