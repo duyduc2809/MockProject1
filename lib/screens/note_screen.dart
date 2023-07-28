@@ -301,27 +301,28 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () async {
-                      // Show DateTimePicker and update _tempPlanDate
-                      DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2100),
-                      );
-                      if (pickedDate != null) {
-                        setState(() {
-                          _tempPlanDate = pickedDate.toIso8601String();
-                        });
-                      }
-                    },
-                    child: Text(_tempPlanDate != null &&
-                            _tempPlanDate!.isNotEmpty &&
-                            _tempPlanDate! != ""
-                        ? "Pick Plan Date: ${_tempPlanDate.toString().substring(0, 10)}"
-                        : "Pick Plan Date"),
-                  ),
+                  Row(children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        // Show DateTimePicker and update _tempPlanDate
+                        DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                        );
+                        if (pickedDate != null) {
+                          setState(() {
+                            _tempPlanDate = pickedDate.toIso8601String();
+                          });
+                        }
+                      },
+                      child: Text("Pick Plan Date"),
+                    ),
+                    Expanded(
+                        child: Text(
+                            '${_tempPlanDate.toString().substring(0, 10)}'))
+                  ]),
                 ],
               ),
             ),
