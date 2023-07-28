@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/validator.dart';
 import 'package:mock_prj1/widgets/change_email_text_form_field.dart';
-import '../classes/account.dart';
+import '../models/account.dart';
 import '../constants/dimension_constant.dart';
 import '../helpers/sql_account_helper.dart';
 import '../widgets/custom_input_decoration.dart';
