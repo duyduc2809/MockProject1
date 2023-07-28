@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mock_prj1/constants/dimension_constant.dart';
+import 'package:mock_prj1/constants/text_style_constant.dart';
 import 'package:mock_prj1/screens/category_screen.dart';
 import 'package:mock_prj1/screens/change_password_screen.dart';
 import 'package:mock_prj1/screens/dashboard_screen.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   static const _priorityText = 'Priority';
   static const _statusText = 'Status';
   static const _noteText = 'Note';
-  var  _currentFirstName = SQLAccountHelper.currentAccount['firstName'];
+  var _currentFirstName = SQLAccountHelper.currentAccount['firstName'];
   var _currentLastName = SQLAccountHelper.currentAccount['lastName'];
   var _currentEmail = SQLAccountHelper.currentAccount['email'];
   @override
@@ -274,15 +275,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _getFullName() {
-    if (_currentFirstName != '' &&
-        _currentLastName != '') {
-      return Text(
-        '${_currentFirstName} ${_currentLastName}',
-        style: const TextStyle(
-            color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-      );
-    } else {
-      return const SizedBox();
-    }
+    return _currentFirstName != '' && _currentLastName != ''
+        ? Text('${_currentFirstName} ${_currentLastName}', style: getNameStyle)
+        : _currentFirstName != ''
+            ? Text('${_currentFirstName}', style: getNameStyle)
+            : _currentLastName != ''
+                ? Text('${_currentLastName}', style: getNameStyle)
+                : const SizedBox();
   }
 }
