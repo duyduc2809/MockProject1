@@ -36,8 +36,7 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _rememberMe = prefs.getBool('rememberMe') ?? false;
       if (_rememberMe) {
-        PrefHelper.loadSavedCredentials(
-            _emailController, _passwordController);
+        PrefHelper.loadSavedCredentials(_emailController, _passwordController);
         _login();
       }
     });
