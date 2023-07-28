@@ -379,7 +379,10 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             margin: cardMargin,
             color: Colors.orange[200],
             child: ListTile(
-              title: Text(note['name'] ?? '', style: cardTitleTextStyle,),
+              title: Text(
+                note['name'] ?? '',
+                style: cardTitleTextStyle,
+              ),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
