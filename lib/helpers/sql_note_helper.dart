@@ -1,5 +1,5 @@
 import 'package:sqflite/sqflite.dart';
-import '../classes/note.dart';
+import '../models/note.dart';
 import 'database_helper.dart';
 import 'sql_account_helper.dart';
 

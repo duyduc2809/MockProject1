@@ -4,7 +4,7 @@ import 'package:mock_prj1/screens/home_screen.dart';
 import '../constants/dimension_constant.dart';
 import '../widgets/custom_input_decoration.dart';
 import '../helpers/sql_account_helper.dart';
-import '../classes/account.dart';
+import '../models/account.dart';
 
 class ChangePassWord extends StatefulWidget {
   const ChangePassWord({super.key});

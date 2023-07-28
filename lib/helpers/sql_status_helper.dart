@@ -1,7 +1,7 @@
 import 'package:mock_prj1/helpers/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
-import '../classes/status.dart';
+import '../models/status.dart';
 
 class SQLStatusHelper {
   static Future<void> createStatusTable(Database database) async {
