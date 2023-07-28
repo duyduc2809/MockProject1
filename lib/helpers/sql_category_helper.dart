@@ -1,8 +1,7 @@
 import 'package:mock_prj1/helpers/database_helper.dart';
-
-import '../classes/Category.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
+import '../models/Category.dart';
 
 class SQLCategoryHelper {
   static Future<void> createCategoryTable(Database database) async {
