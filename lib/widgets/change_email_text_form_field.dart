@@ -34,6 +34,7 @@ class ChangeEmailTextFormField extends StatefulWidget {
 }
 
 class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
+  //_debounce là thời gian trì hoãn việc validate sau khi người dùng nhập
   Timer? _debounce;
   var isValidating = false;
   var isValid = false;
@@ -43,6 +44,7 @@ class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //tự động gọi validator khi user tương tác với TextFormField
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (value == widget.currentEmail) {
@@ -79,7 +81,6 @@ class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
         _debounce = Timer(widget.validationDebounce, () async {
           isWaiting = false;
           isValid = await validate(text);
-
           isValidating = false;
           setState(() {});
         });
@@ -128,6 +129,7 @@ class _ChangeEmailTextFormFieldState extends State<ChangeEmailTextFormField> {
     return isValid;
   }
 
+  //lấy icon tại trailing của TextFormField dựa vào giá trị 3 biến isValidating, isValid, isDirty
   Widget _getSuffixIcon() {
     if (isValidating) {
       return const CircularProgressIndicator(

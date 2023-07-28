@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/dimension_constant.dart';
 
-class AsyncTextFormField extends StatefulWidget {
+class CustomTextFormField extends StatefulWidget {
   final Future<bool> Function(String) validator;
   final Duration validationDebounce;
   final TextEditingController controller;
@@ -17,7 +17,7 @@ class AsyncTextFormField extends StatefulWidget {
   final Icon? prefixIcon;
   final String labelText;
 final bool? isCheckEmpty;
-  const AsyncTextFormField(
+  const CustomTextFormField(
       {Key? key,
       required this.validator,
       required this.validationDebounce,
@@ -31,10 +31,11 @@ final bool? isCheckEmpty;
       : super(key: key);
 
   @override
-  _AsyncTextFormFieldState createState() => _AsyncTextFormFieldState();
+  _CustomTextFormFieldState createState() => _CustomTextFormFieldState();
 }
 
-class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  //_debounce là thời gian trì hoãn việc validate sau khi người dùng nhập
   Timer? _debounce;
   var isValidating = false;
   var isValid = false;
@@ -44,6 +45,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      //tự động gọi validator khi user tương tác với TextFormField
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (value) {
         if (isValidating) {
@@ -121,7 +123,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
     return isValid;
   }
 
-
+  //lấy icon tại trailing của TextFormField dựa vào giá trị 3 biến isValidating, isValid, isDirty
   Widget _getSuffixIcon() {
     if (isValidating) {
       return const CircularProgressIndicator(

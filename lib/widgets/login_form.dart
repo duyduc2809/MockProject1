@@ -83,7 +83,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: spaceBetweenField,
             ),
             ElevatedButton(
@@ -110,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
                     });
                   },
                 ),
-                Text('Remember me')
+                const Text('Remember me')
               ],
             ),
           ],
