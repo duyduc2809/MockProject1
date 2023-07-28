@@ -64,8 +64,6 @@ class _EditProfileState extends State<EditProfile> {
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _firstNameController,
-
-
                   decoration: CustomInputDecoration(
                     labelText: 'First name',
                   ),
@@ -75,8 +73,6 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 TextFormField(
                   controller: _lastNameController,
-
-
                   decoration: CustomInputDecoration(
                     labelText: 'Last name',
                   ),
