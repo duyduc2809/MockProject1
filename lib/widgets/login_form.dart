@@ -140,7 +140,7 @@ class _LoginFormState extends State<LoginForm> {
     }
     !isLoginSuccess
         ? ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Wrong username or password')))
+            const SnackBar(content: Text('Wrong email or password')))
         : null;
   }
 }
