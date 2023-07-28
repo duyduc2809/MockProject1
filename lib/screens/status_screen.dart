@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/classes/status.dart';
+import 'package:mock_prj1/models/status.dart';
 import 'package:mock_prj1/helpers/sql_status_helper.dart';
 import '../constants/dimension_constant.dart';
 import '../constants/text_style_constant.dart';

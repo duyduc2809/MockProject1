@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/classes/priority.dart';
+import 'package:mock_prj1/models/priority.dart';
 import 'package:mock_prj1/helpers/sql_priority_helper.dart';
 
 import '../constants/dimension_constant.dart';

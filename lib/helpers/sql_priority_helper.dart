@@ -1,7 +1,7 @@
 import 'package:mock_prj1/helpers/database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sqflite/sqflite.dart';
-import '../classes/priority.dart';
+import '../models/priority.dart';
 
 class SQLPriorityHelper {
   static Future<void> createPriorityTable(Database database) async {

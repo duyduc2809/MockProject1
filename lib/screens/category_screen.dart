@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mock_prj1/classes/Category.dart';
+import 'package:mock_prj1/models/Category.dart';
 import 'package:mock_prj1/helpers/sql_category_helper.dart';
 import '../constants/dimension_constant.dart';
 import '../constants/text_style_constant.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mock_prj1/helpers/sql_account_helper.dart';
 
 import '../validator.dart';
-import '../classes/account.dart';
+import '../models/account.dart';
 import '../constants/dimension_constant.dart';
 import 'custom_input_decoration.dart';
 import 'custom_text_form_field.dart';
