@@ -101,7 +101,9 @@ class _EditProfileState extends State<EditProfile> {
                             borderRadius:
                                 BorderRadius.circular(kMediumPadding))),
                     onPressed: () async {
+                      // Check if the form is valid.
                       if (_formkey.currentState!.validate()) {
+                        // Update the user's account information in the database.
                         SQLAccountHelper.updateAccount(Account(
                             firstName: _firstNameController.text,
                             lastName: _lastNameController.text,
@@ -109,9 +111,12 @@ class _EditProfileState extends State<EditProfile> {
                             id: SQLAccountHelper.currentAccount['id'],
                             password:
                                 SQLAccountHelper.currentAccount['password']));
-                        await SQLAccountHelper.setCurrentAccount(_emailController);
+                        // Update the current account in the app.
+                        await SQLAccountHelper.setCurrentAccount(
+                            _emailController);
                         print(SQLAccountHelper.currentAccount['id']);
                         widget.refreshDrawer();
+                        // Show a SnackBar to inform the user that the edit was successful.
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Edit successful! ')));
                       }
