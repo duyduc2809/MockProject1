@@ -6,14 +6,14 @@ import '../widgets/register_form.dart';
 //màn hình chính của 2 form đăng nhập và đăng ký tài khoản
 enum FormType { login, register }
 
-class DualFormScreen extends StatefulWidget {
-  const DualFormScreen({super.key});
+class AuthenticationScreen extends StatefulWidget {
+  const AuthenticationScreen({super.key});
 
   @override
-  _DualFormScreenState createState() => _DualFormScreenState();
+  _AuthenticationScreenState createState() => _AuthenticationScreenState();
 }
 
-class _DualFormScreenState extends State<DualFormScreen> {
+class _AuthenticationScreenState extends State<AuthenticationScreen> {
   FormType _currentForm = FormType.login;
 
   @override

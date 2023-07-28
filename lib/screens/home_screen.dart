@@ -258,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(builder: (context) {
                             PrefHelper.clearSavedCredentials();
-                            return const DualFormScreen();
+                            return const AuthenticationScreen();
                           }), (route) => false);
                         },
                       ),

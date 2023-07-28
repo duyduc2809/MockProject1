@@ -42,7 +42,7 @@ class _RegisterFormState extends State<RegisterForm> {
             const SizedBox(
               height: spaceBetweenField,
             ),
-            AsyncTextFormField(
+            CustomTextFormField(
               labelText: 'Email',
               validator: (value) => Validator.isValidEmail(value),
               validationDebounce: const Duration(milliseconds: 200),
